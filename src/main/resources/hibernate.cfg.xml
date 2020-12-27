@@ -31,10 +31,12 @@
          <property name="hibernate.hbm2ddl.auto">create </property>
          
          -->
+       
+        <mapping class="com.easyshop.models.UserLoginProfile"/>
+        <mapping class="com.easyshop.models.UserRegister"/>
+        
         <!--
-        <mapping class="com.revature.model.Avenger"/>
-        <mapping class="com.revature.model.Home"/>
-        <mapping class="com.revature.model.Team"/>
+        <mapping class="com.revature.models.Team"/>
         
         -->
    
