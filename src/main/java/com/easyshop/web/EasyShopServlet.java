@@ -36,9 +36,24 @@ public class EasyShopServlet extends HttpServlet{
 	  case "login" :
 		  
 		  System.out.println("Hello EasyShop Welcome....");
+		  
 		  logger.info("login request is invoked !!....");
 		  loginController.login(request,response);
 		  break;
+		  
+	  case "register" :
+		  
+		  //if(request.getSession(false) != null) {
+			  System.out.println("Hello EasyShop Welcome....");
+			  
+			  logger.info("login request is invoked !!....");
+			  loginController.registerUser(request,response);
+		  
+		  //}else {
+			 // response.setStatus(403);
+		 // }
+		  
+		  break;	  
 		  
 		  
 	  }
