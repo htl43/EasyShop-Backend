@@ -14,6 +14,13 @@ public class LoginService {
 		userDAO.isLogin(userLoginProfile);
 		return false;
 	}
+
+
+	public boolean registerUser(UserLoginProfile userLoginProfile) {
+		
+		return userDAO.registerUser(userLoginProfile);
+		
+	}
 	
 	
 

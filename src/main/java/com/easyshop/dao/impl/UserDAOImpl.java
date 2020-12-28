@@ -19,10 +19,29 @@ public class UserDAOImpl implements UserDAO{
 		return false;
 	}
 
+
+
 	@Override
-	public boolean registerUser(UserLoginProfile userLoginProfile, UserRegister userRegister) {
+	public boolean registerUser(UserLoginProfile userLoginProfile) {
 		
+		Session session = HibernateUtil.getSession();
 		
+		System.out.println(userLoginProfile);
+		
+		if(userLoginProfile != null) {
+			
+			System.out.println("Before Register");
+			
+			
+			
+			session.save(userLoginProfile);
+			
+			System.out.println("After Register");
+			
+			return true;
+			
+		}
+
 		return false;
 	}
 

@@ -59,8 +59,37 @@ public class LoginController {
 		
 	}
 
-	public void registerUser(HttpServletRequest request, HttpServletResponse response) {
+	public void registerUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
+		logger.info("registerUser is invokes!!...");
+		System.out.println("Register User");
+		
+		if(request.getMethod().equals("POST")) {
+			
+			BufferedReader bufferReader = request.getReader();
+			
+			StringBuilder stringBuilder = new StringBuilder();
+			String line = bufferReader.readLine();
+			
+			while (line != null) {
+				stringBuilder.append(line);
+				line = bufferReader.readLine();
+			}
+			
+			String body = new String(stringBuilder);
+			
+			logger.info("body" + body);
+			System.out.println("body" + body);
+			
+			UserLoginProfile userLoginProfile = objectMapper.readValue(body, UserLoginProfile.class);
+			
+			System.out.println(userLoginProfile);
+			
+			if(loginService.registerUser(userLoginProfile)) {
+			       response.setStatus(200);
+			}
+			
+		}
 		
 	}
 
