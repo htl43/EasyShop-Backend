@@ -1,6 +1,6 @@
 package com.easyshop.models;
 
-import java.util.Date;
+import java.sql.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,51 +15,52 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "es_user")
-public class UserLoginProfile {
+public class EsUser {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id ;
 	//private int contactId;
+	
 	@Column(nullable = false)
 	private String username;
+	
 	@Column(nullable = false)
 	private String password;
+	
+	@Column(name="register_date")
 	private Date registedDate;
+	
+	@Column(name="last_login_date")
 	private Date lastLoginDate;
 	
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "userContactId")
-	private UserRegister userRegister;
-	
-	// Constructor
-	public UserLoginProfile() {
+	@JoinColumn(name = "user_contact_id")
+	private EsUserContact userContact;
+
+	public EsUser() {
 		super();
-		
 	}
 
-	public UserLoginProfile(int id, String username, String password, Date registedDate, Date lastLoginDate,
-			UserRegister userRegister) {
+	public EsUser(int id, String username, String password, Date registedDate, Date lastLoginDate,
+			EsUserContact userContact) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.registedDate = registedDate;
 		this.lastLoginDate = lastLoginDate;
-		this.userRegister = userRegister;
+		this.userContact = userContact;
 	}
 
-	public UserLoginProfile(String username, String password, Date registedDate, Date lastLoginDate,
-			UserRegister userRegister) {
+	public EsUser(String username, String password, Date registedDate, Date lastLoginDate, EsUserContact userContact) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.registedDate = registedDate;
 		this.lastLoginDate = lastLoginDate;
-		this.userRegister = userRegister;
+		this.userContact = userContact;
 	}
-	
-	//getter and setter
 
 	public int getId() {
 		return id;
@@ -101,12 +102,12 @@ public class UserLoginProfile {
 		this.lastLoginDate = lastLoginDate;
 	}
 
-	public UserRegister getUserRegister() {
-		return userRegister;
+	public EsUserContact getUserContact() {
+		return userContact;
 	}
 
-	public void setUserRegister(UserRegister userRegister) {
-		this.userRegister = userRegister;
+	public void setUserContact(EsUserContact userContact) {
+		this.userContact = userContact;
 	}
 
 	@Override
@@ -117,7 +118,7 @@ public class UserLoginProfile {
 		result = prime * result + ((lastLoginDate == null) ? 0 : lastLoginDate.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((registedDate == null) ? 0 : registedDate.hashCode());
-		result = prime * result + ((userRegister == null) ? 0 : userRegister.hashCode());
+		result = prime * result + ((userContact == null) ? 0 : userContact.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
@@ -130,7 +131,7 @@ public class UserLoginProfile {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		UserLoginProfile other = (UserLoginProfile) obj;
+		EsUser other = (EsUser) obj;
 		if (id != other.id)
 			return false;
 		if (lastLoginDate == null) {
@@ -148,10 +149,10 @@ public class UserLoginProfile {
 				return false;
 		} else if (!registedDate.equals(other.registedDate))
 			return false;
-		if (userRegister == null) {
-			if (other.userRegister != null)
+		if (userContact == null) {
+			if (other.userContact != null)
 				return false;
-		} else if (!userRegister.equals(other.userRegister))
+		} else if (!userContact.equals(other.userContact))
 			return false;
 		if (username == null) {
 			if (other.username != null)
@@ -163,10 +164,11 @@ public class UserLoginProfile {
 
 	@Override
 	public String toString() {
-		return "UserLoginProfile [id=" + id + ", username=" + username + ", password=" + password + ", registedDate="
-				+ registedDate + ", lastLoginDate=" + lastLoginDate + ", userRegister=" + userRegister + "]";
+		return "EsUser [id=" + id + ", username=" + username + ", password=" + password + ", registedDate="
+				+ registedDate + ", lastLoginDate=" + lastLoginDate + ", userContact=" + userContact + "]";
 	}
-    
+	
+	
 	
 	
 	

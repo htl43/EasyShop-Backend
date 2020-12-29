@@ -4,13 +4,13 @@ import org.hibernate.Session;
 
 import com.easyshop.dao.UserDAO;
 import com.easyshop.dao.dbutil.HibernateUtil;
-import com.easyshop.models.UserLoginProfile;
-import com.easyshop.models.UserRegister;
+import com.easyshop.models.EsUser;
+import com.easyshop.models.EsUserContact;
 
 public class UserDAOImpl implements UserDAO{
 
 	@Override
-	public boolean isLogin(UserLoginProfile userLoginProfile) {
+	public boolean isLogin(EsUser userLoginProfile) {
 		
 		Session session = HibernateUtil.getSession();
 		
@@ -20,10 +20,14 @@ public class UserDAOImpl implements UserDAO{
 	}
 
 	@Override
-	public boolean registerUser(UserLoginProfile userLoginProfile, UserRegister userRegister) {
-		
-		
-		return false;
+	public boolean registerUser(EsUser esUser) {
+		Session ses = HibernateUtil.getSession();
+		try {
+			ses.save(esUser);
+			return true;
+		} catch (Exception e){
+			return false;
+		}		
 	}
 
 }

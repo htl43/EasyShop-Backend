@@ -3,6 +3,7 @@ package com.easyshop.web;
 
 import java.io.IOException;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,7 +20,7 @@ public class EasyShopServlet extends HttpServlet{
 	private static final Logger logger = LogManager.getLogger(EasyShopServlet.class);
 	
 	
-  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	  
 	  
 	  logger.info(" Program is starting ....");
@@ -33,19 +34,23 @@ public class EasyShopServlet extends HttpServlet{
 	  
 	  switch(URI) {
 	  
-	  case "login" :
-		  
-		  System.out.println("Hello EasyShop Welcome....");
-		  logger.info("login request is invoked !!....");
-		  loginController.login(request,response);
-		  break;
+	  	case "login" :		  
+			  logger.info("login request is invoked !!....");
+			  loginController.login(request,response);
+			  break;
+			  
+	  	case "register" :
+	  		  System.out.println("Register is invoked!!");
+			  logger.info("Register request is invoked !!....");
+			  loginController.registerUser(request, response);
+			  break;
 		  
 		  
 	  }
 	  
   }
   
- protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+ protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	 
 	 logger.info(" doPost method is invoked !!....");
 	 doGet(request, response);

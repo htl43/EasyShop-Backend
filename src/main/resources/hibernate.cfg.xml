@@ -9,13 +9,13 @@
    <session-factory>
         <!-- JDBC -->
         <property name="hibernate.connection.username">postgres</property>
-        <property name="hibernate.connection.password">password</property>
-        <property name="hibernate.connection.url">jdbc:postgresql://javafs201130.cxs16voijxgr.us-east-1.rds.amazonaws.com:5432/postgres</property>
+        <property name="hibernate.connection.password">Baohieu1984</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/postgres</property>
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
         
         <!-- Hibernate Properties -->
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
-       
+        <property name="hibernate.default_schema">easy_shop</property>
         
         <!-- Hibernate console output -->
         <property name="hibernate.show_sql">true</property>
@@ -23,7 +23,7 @@
         
         <!-- DDL -->
         <!--  Update    -->
-        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="hibernate.hbm2ddl.auto">create</property>
         
         
       
@@ -32,8 +32,8 @@
          
          -->
        
-        <mapping class="com.easyshop.models.UserLoginProfile"/>
-        <mapping class="com.easyshop.models.UserRegister"/>
+        <mapping class="com.easyshop.models.EsUser"/>
+        <mapping class="com.easyshop.models.EsUserContact"/>
         
         <!--
         <mapping class="com.revature.models.Team"/>

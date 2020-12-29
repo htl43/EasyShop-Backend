@@ -1,12 +1,12 @@
 package com.easyshop.dao;
 
-import com.easyshop.models.UserLoginProfile;
-import com.easyshop.models.UserRegister;
+import com.easyshop.models.EsUser;
+import com.easyshop.models.EsUserContact;
 
 public interface UserDAO {
 	
-	public boolean isLogin(UserLoginProfile userLoginProfile);
-	public boolean registerUser(UserLoginProfile userLoginProfile,UserRegister userRegister);
+	public boolean isLogin(EsUser userLoginProfile);
+	public boolean registerUser(EsUser esUser);
 	
 	
 

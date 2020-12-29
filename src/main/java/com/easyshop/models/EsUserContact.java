@@ -1,5 +1,6 @@
 package com.easyshop.models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,11 +9,13 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name ="es_usercontact")
-public class UserRegister {
+public class EsUserContact {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY )
+	@Column(name="user_contact_id")
 	private int userContactId;
+	
 	private String firstName;
 	private String lastName;
 	private String email;
@@ -24,12 +27,12 @@ public class UserRegister {
 	private String zipcode;
 	private String country;
 	
-	public UserRegister() {
+	public EsUserContact() {
 		super();
 		
 	}
 
-	public UserRegister(int userContactId, String firstName, String lastName, String email, String phone,
+	public EsUserContact(int userContactId, String firstName, String lastName, String email, String phone,
 			String address1, String address2, String city, String state, String zipcode, String country) {
 		super();
 		this.userContactId = userContactId;
@@ -45,7 +48,7 @@ public class UserRegister {
 		this.country = country;
 	}
 
-	public UserRegister(String firstName, String lastName, String email, String phone, String address1, String address2,
+	public EsUserContact(String firstName, String lastName, String email, String phone, String address1, String address2,
 			String city, String state, String zipcode, String country) {
 		super();
 		this.firstName = firstName;
