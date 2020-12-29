@@ -3,15 +3,17 @@ package com.easyshop.services;
 import com.easyshop.dao.UserDAO;
 import com.easyshop.dao.impl.UserDAOImpl;
 import com.easyshop.models.EsUser;
+import com.easyshop.models.LoginDTO;
 
 public class LoginService {
 	
 	private UserDAO userDAO = new UserDAOImpl();
 
 
-	public boolean isLogin(EsUser userLoginProfile) {
-		
-		userDAO.isLogin(userLoginProfile);
+	public boolean isLogin(LoginDTO userLogin) {
+		if(userDAO.isLogin(userLogin)) {
+			return true;
+		}
 		return false;
 	}
 
