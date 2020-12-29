@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 
 import com.easyshop.models.EsUser;
 import com.easyshop.services.LoginService;
+import com.fasterxml.jackson.core.JsonParser.Feature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -26,6 +27,7 @@ public class LoginController {
 	public void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		log.info("login controller is invoked !!...");
+		objectMapper.configure(Feature.AUTO_CLOSE_SOURCE, true);
 		
 		if(request.getMethod().equals("POST")) {
 			
