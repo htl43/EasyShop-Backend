@@ -16,18 +16,22 @@ public class UserDAOImpl implements UserDAO{
 	private static Logger log=Logger.getLogger(UserDAOImpl.class);
 	
 	@Override
-	public boolean isLogin(LoginDTO userLogin) {
+	public EsUser isLogin(LoginDTO userLogin) {
 		Session ses = HibernateUtil.getSession();
 		try {
 			List<EsUser> esUserList = ses.createQuery(
 					"FROM EsUser e WHERE e.username=\'"+ userLogin.username +"\' AND e.password=\'" + userLogin.password +"\'")
 					.list();
 			HibernateUtil.closeSession();
-			System.out.println(esUserList);
-			return true;
+			if(esUserList.size()>0) {
+				System.out.println(esUserList.get(0));
+				return esUserList.get(0);
+			} else {
+				return null;
+			}
 		} catch (Exception e){
 			log.warn(e);
-			return false;
+			return null;
 		}	
 		
 	}

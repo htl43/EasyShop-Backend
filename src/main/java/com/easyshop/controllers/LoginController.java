@@ -49,13 +49,20 @@ public class LoginController {
 		LoginDTO userLogin =  objectMapper.readValue(body, LoginDTO.class);
 		userLogin.password = loginService.encryptPassword(userLogin.password);
 				
-		if(loginService.isLogin(userLogin)) {	
-			System.out.println("Successfully logined !!......");
-			response.setStatus(200);
-			response.getWriter().print("Successfully logined !!......");
+		EsUser esUser = loginService.isLogin(userLogin);
+		if(esUser!=null) {		
+			esUser.setPassword(""); // send empty password to fron-tend
+			String json = objectMapper.writeValueAsString(esUser);
+			response.getWriter().print(json);
+			response.setStatus(200);		
+			HttpSession ses = request.getSession();	
+			ses.setAttribute("user", esUser);
+			ses.setAttribute("loggedin", true);
+			log.info("Successfully logined !!......");
 		} else {
 			response.setStatus(401);
 			response.getWriter().print("Failed logined !!......");
+			log.info("Failed logined !!......");
 		}
 									
 	}

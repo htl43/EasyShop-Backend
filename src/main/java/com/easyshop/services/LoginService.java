@@ -10,11 +10,9 @@ public class LoginService {
 	private UserDAO userDAO = new UserDAOImpl();
 
 
-	public boolean isLogin(LoginDTO userLogin) {
-		if(userDAO.isLogin(userLogin)) {
-			return true;
-		}
-		return false;
+	public EsUser isLogin(LoginDTO userLogin) {
+		EsUser eu = userDAO.isLogin(userLogin);
+		return eu;
 	}
 
 
