@@ -58,7 +58,7 @@ public class LoginController {
 			HttpSession ses = request.getSession();	
 			ses.setAttribute("user", esUser);
 			ses.setAttribute("loggedin", true);
-			log.info("Successfully logined !!......");
+			log.info("Successfully logined !! User=" + esUser.toString());
 		} else {
 			response.setStatus(401);
 			response.getWriter().print("Failed logined !!......");
