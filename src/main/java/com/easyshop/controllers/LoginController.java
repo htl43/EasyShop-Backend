@@ -11,7 +11,9 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 import com.easyshop.models.EsUser;
+import com.easyshop.models.LoginDTO;
 import com.easyshop.services.LoginService;
+import com.fasterxml.jackson.core.JsonParser.Feature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -24,43 +26,49 @@ public class LoginController {
 	private LoginService loginService = new LoginService();
 		
 	public void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		objectMapper.configure(Feature.AUTO_CLOSE_SOURCE, true);
 		
 		log.info("login controller is invoked !!...");
 		
-		if(request.getMethod().equals("POST")) {
+		BufferedReader bufferReader = request.getReader();
+		
+		StringBuilder stringBuilder = new StringBuilder();
+		
+		String line = bufferReader.readLine();
+		
+		while(line != null) {
 			
-			BufferedReader bufferReader = request.getReader();
-			
-			StringBuilder stringBuilder = new StringBuilder();
-			
-			String line = bufferReader.readLine();
-			
-			while(line != null) {
-				
-				stringBuilder.append(line);
-				line = bufferReader.readLine();
-			}
-			
-			String body = new String(stringBuilder);
-			
-			log.info(" String Body" + body);
-			
-			EsUser userLoginProfile =  objectMapper.readValue(body, EsUser.class);
-			
-			if(loginService.isLogin(userLoginProfile)) {
-				
-				System.out.println(" Successfully logined !!......");
-			}
-			
-			
+			stringBuilder.append(line);
+			line = bufferReader.readLine();
 		}
 		
+		String body = new String(stringBuilder);
 		
+		log.info(" String Body" + body);
 		
-		
+		LoginDTO userLogin =  objectMapper.readValue(body, LoginDTO.class);
+		userLogin.password = loginService.encryptPassword(userLogin.password);
+				
+		EsUser esUser = loginService.isLogin(userLogin);
+		if(esUser!=null) {		
+			esUser.setPassword(""); // send empty password to fron-tend
+			String json = objectMapper.writeValueAsString(esUser);
+			response.getWriter().print(json);
+			response.setStatus(200);		
+			HttpSession ses = request.getSession();	
+			ses.setAttribute("user", esUser);
+			ses.setAttribute("loggedin", true);
+			log.info("Successfully logined !! User=" + esUser.toString());
+		} else {
+			response.setStatus(401);
+			response.getWriter().print("Failed logined !!......");
+			log.info("Failed logined !!......");
+		}
+									
 	}
 
 	public void registerUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+		objectMapper.configure(Feature.AUTO_CLOSE_SOURCE, true);
 		if(req.getMethod().equals("POST")) {		
 			BufferedReader reader = req.getReader();
 			StringBuilder sb = new StringBuilder();
@@ -88,7 +96,7 @@ public class LoginController {
 				ses.invalidate();
 			}
 			resp.setStatus(400);
-			resp.getWriter().print("Bad Requested Using Http Method");	
+			resp.getWriter().print("Bad Requested Using Http GET Method");	
 		}
 		
 	}
