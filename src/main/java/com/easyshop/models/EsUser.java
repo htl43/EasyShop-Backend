@@ -34,8 +34,8 @@ public class EsUser {
 	@Column(name="last_login_date")
 	private Date lastLoginDate;
 	
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "user_contact_id")
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name="user_contact_id")
 	private EsUserContact userContact;
 
 	public EsUser() {

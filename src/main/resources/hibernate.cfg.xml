@@ -9,8 +9,7 @@
    <session-factory>
         <!-- JDBC -->
         <property name="hibernate.connection.username">postgres</property>
-        <property name="hibernate.connection.password">password</property>
-        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/postgres</property>
+        <property name="hibernate.connection.password">baohieu1984</property>
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
         
         <!-- Hibernate Properties -->
@@ -23,7 +22,7 @@
         
         <!-- DDL -->
         <!--  Update    -->
-        <property name="hibernate.hbm2ddl.auto">create</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
         
         
       

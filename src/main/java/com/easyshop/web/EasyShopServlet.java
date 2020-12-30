@@ -8,22 +8,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.log4j.Logger;
 
 import com.easyshop.controllers.LoginController;
+
+
 
 public class EasyShopServlet extends HttpServlet{
 	
 	private LoginController loginController = new LoginController();
 	
-	private static final Logger logger = LogManager.getLogger(EasyShopServlet.class);
+	private static Logger log=Logger.getLogger(EasyShopServlet.class);
 	
 	
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	  
 	  
-	  logger.info(" Program is starting ....");
+	  log.info(" Program is starting ....");
 	  
 	  response.setContentType("application.json");
 	  
@@ -34,24 +35,24 @@ public class EasyShopServlet extends HttpServlet{
 	  
 	  switch(URI) {
 	  	case "login" :		  
-			  logger.info("login request is invoked !!....");
+			  log.info("login request is invoked !!....");
 			  loginController.login(request,response);
 			  break;
 			  
 	  	case "register" :
 	  		  System.out.println("Register is invoked!!");
-			  logger.info("Register request is invoked !!....");
+			  log.info("Register request is invoked !!....");
 			  loginController.registerUser(request, response);
+
 			  break;
 
-		
 	  }
 	  
   }
   
  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	 
-	 logger.info(" doPost method is invoked !!....");
+	 log.info(" doPost method is invoked !!....");
 	 doGet(request, response);
 	 
 	 

@@ -3,16 +3,16 @@ package com.easyshop.services;
 import com.easyshop.dao.UserDAO;
 import com.easyshop.dao.impl.UserDAOImpl;
 import com.easyshop.models.EsUser;
+import com.easyshop.models.LoginDTO;
 
 public class LoginService {
 	
 	private UserDAO userDAO = new UserDAOImpl();
 
 
-	public boolean isLogin(EsUser userLoginProfile) {
-		
-		userDAO.isLogin(userLoginProfile);
-		return false;
+	public EsUser isLogin(LoginDTO userLogin) {
+		EsUser eu = userDAO.isLogin(userLogin);
+		return eu;
 	}
 
 	public boolean create(EsUser esUser) {	
