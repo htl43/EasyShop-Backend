@@ -15,13 +15,6 @@ public class LoginService {
 		return false;
 	}
 
-
-	public boolean registerUser(UserLoginProfile userLoginProfile) {
-		
-		return userDAO.registerUser(userLoginProfile);
-		
-	}
-	
 	public boolean create(EsUser esUser) {	
 		if(userDAO.registerUser(esUser)) {
 			return true;

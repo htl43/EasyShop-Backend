@@ -9,7 +9,7 @@
    <session-factory>
         <!-- JDBC -->
         <property name="hibernate.connection.username">postgres</property>
-        <property name="hibernate.connection.password">Baohieu1984</property>
+        <property name="hibernate.connection.password">password</property>
         <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/postgres</property>
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
         
