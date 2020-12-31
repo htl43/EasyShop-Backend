@@ -45,6 +45,22 @@ public class EasyShopServlet extends HttpServlet{
 			  loginController.registerUser(request, response);
 
 			  break;
+			  
+//	  	case "poduct" :
+//	  		  System.out.println("Register is invoked!!");
+//			  log.info("Register request is invoked !!....");
+//			  loginController.registerUser(request, response);
+//
+//			  break;
+//			  
+//	  	case "category" :
+//	  		  System.out.println("Register is invoked!!");
+//			  log.info("Register request is invoked !!....");
+//			  loginController.registerUser(request, response);
+//
+//			  break;	
+			  
+			  
 
 	  }
 	  
