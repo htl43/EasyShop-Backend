@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -24,8 +25,8 @@ public class EsProduct {
 	@GeneratedValue(strategy =GenerationType.IDENTITY)
     private int productId;
 	
-	@Column(nullable = false)
-	private int SKU;
+	@Column(nullable = false, unique = true)
+	private int sku;
 	
 	@Column(nullable =false)
 	private String productName;
@@ -33,16 +34,18 @@ public class EsProduct {
 	private String metaTitle;
 	private String description;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	private String modelNo;
 	
 	@Column(nullable = false)
 	private double unitPrice;
 	
-	@ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name = "sizeId")
 	private  EsSize sizeId;
 	
-	@ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name = "colorId")
 	private EsColor colorId ;
 	
 	private double discount;
@@ -56,22 +59,23 @@ public class EsProduct {
 	private int ranking;
 	private String note;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(joinColumns = @JoinColumn(name ="productId"),inverseJoinColumns = @JoinColumn(name="categoryId"))
-	private List<EsCategory> category;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="categoryId")
+	private EsCategory categoryId;
 
 	public EsProduct() {
 		super();
 		
 	}
 
+
 	public EsProduct(int productId, int sKU, String productName, String metaTitle, String description, String modelNo,
 			double unitPrice, EsSize sizeId, EsColor colorId, double discount, int unitWeight, int onOrder,
 			int stockQuantity, boolean isProductAvailabe, boolean isDiscountAvailable, Date createDate, int picture,
-			int ranking, String note, List<EsCategory> category) {
+			int ranking, String note, EsCategory categoryId) {
 		super();
 		this.productId = productId;
-		this.SKU = sKU;
+		this.sku = sKU;
 		this.productName = productName;
 		this.metaTitle = metaTitle;
 		this.description = description;
@@ -89,15 +93,15 @@ public class EsProduct {
 		this.picture = picture;
 		this.ranking = ranking;
 		this.note = note;
-		this.category = category;
+		this.categoryId = categoryId;
 	}
 
 	public EsProduct(int sKU, String productName, String metaTitle, String description, String modelNo,
 			double unitPrice, EsSize sizeId, EsColor colorId, double discount, int unitWeight, int onOrder,
 			int stockQuantity, boolean isProductAvailabe, boolean isDiscountAvailable, Date createDate, int picture,
-			int ranking, String note, List<EsCategory> category) {
+			int ranking, String note, EsCategory categoryId) {
 		super();
-		this.SKU = sKU;
+		this.sku = sKU;
 		this.productName = productName;
 		this.metaTitle = metaTitle;
 		this.description = description;
@@ -115,7 +119,7 @@ public class EsProduct {
 		this.picture = picture;
 		this.ranking = ranking;
 		this.note = note;
-		this.category = category;
+		this.categoryId = categoryId;
 	}
 
 	public int getProductId() {
@@ -126,13 +130,17 @@ public class EsProduct {
 		this.productId = productId;
 	}
 
-	public int getSKU() {
-		return SKU;
+	
+
+	public int getSku() {
+		return sku;
 	}
 
-	public void setSKU(int sKU) {
-		SKU = sKU;
+
+	public void setSku(int sku) {
+		this.sku = sku;
 	}
+
 
 	public String getProductName() {
 		return productName;
@@ -222,7 +230,7 @@ public class EsProduct {
 		this.stockQuantity = stockQuantity;
 	}
 
-	public boolean isProductAvailabe() {
+	public boolean getIsProductAvailabe() {
 		return isProductAvailabe;
 	}
 
@@ -230,7 +238,7 @@ public class EsProduct {
 		this.isProductAvailabe = isProductAvailabe;
 	}
 
-	public boolean isDiscountAvailable() {
+	public boolean getIsDiscountAvailable() {
 		return isDiscountAvailable;
 	}
 
@@ -270,20 +278,23 @@ public class EsProduct {
 		this.note = note;
 	}
 
-	public List<EsCategory> getCategory() {
-		return category;
+	
+
+	public EsCategory getCategoryId() {
+		return categoryId;
 	}
 
-	public void setCategory(List<EsCategory> category) {
-		this.category = category;
+
+	public void setCategoryId(EsCategory categoryId) {
+		this.categoryId = categoryId;
 	}
+
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + SKU;
-		result = prime * result + ((category == null) ? 0 : category.hashCode());
+		result = prime * result + ((categoryId == null) ? 0 : categoryId.hashCode());
 		result = prime * result + ((colorId == null) ? 0 : colorId.hashCode());
 		result = prime * result + ((createDate == null) ? 0 : createDate.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
@@ -301,6 +312,7 @@ public class EsProduct {
 		result = prime * result + ((productName == null) ? 0 : productName.hashCode());
 		result = prime * result + ranking;
 		result = prime * result + ((sizeId == null) ? 0 : sizeId.hashCode());
+		result = prime * result + sku;
 		result = prime * result + stockQuantity;
 		temp = Double.doubleToLongBits(unitPrice);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
@@ -317,12 +329,10 @@ public class EsProduct {
 		if (getClass() != obj.getClass())
 			return false;
 		EsProduct other = (EsProduct) obj;
-		if (SKU != other.SKU)
-			return false;
-		if (category == null) {
-			if (other.category != null)
+		if (categoryId == null) {
+			if (other.categoryId != null)
 				return false;
-		} else if (!category.equals(other.category))
+		} else if (!categoryId.equals(other.categoryId))
 			return false;
 		if (colorId == null) {
 			if (other.colorId != null)
@@ -378,6 +388,8 @@ public class EsProduct {
 				return false;
 		} else if (!sizeId.equals(other.sizeId))
 			return false;
+		if (sku != other.sku)
+			return false;
 		if (stockQuantity != other.stockQuantity)
 			return false;
 		if (Double.doubleToLongBits(unitPrice) != Double.doubleToLongBits(other.unitPrice))
@@ -389,13 +401,14 @@ public class EsProduct {
 
 	@Override
 	public String toString() {
-		return "EsProduct [productId=" + productId + ", SKU=" + SKU + ", productName=" + productName + ", metaTitle="
+		return "EsProduct [productId=" + productId + ", sku=" + sku + ", productName=" + productName + ", metaTitle="
 				+ metaTitle + ", description=" + description + ", modelNo=" + modelNo + ", unitPrice=" + unitPrice
 				+ ", sizeId=" + sizeId + ", colorId=" + colorId + ", discount=" + discount + ", unitWeight="
 				+ unitWeight + ", onOrder=" + onOrder + ", stockQuantity=" + stockQuantity + ", isProductAvailabe="
 				+ isProductAvailabe + ", isDiscountAvailable=" + isDiscountAvailable + ", createDate=" + createDate
-				+ ", picture=" + picture + ", ranking=" + ranking + ", note=" + note + ", category=" + category + "]";
+				+ ", picture=" + picture + ", ranking=" + ranking + ", note=" + note + ", category=" + categoryId + "]";
 	}
+
 	
 	
 	

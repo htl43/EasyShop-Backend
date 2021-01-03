@@ -2,6 +2,7 @@ package com.easyshop.models;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,6 +18,7 @@ public class EsCategory {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="categoryId")
 	private int categoryId;
 	
 	private String categoryName;
@@ -25,8 +27,8 @@ public class EsCategory {
 	private boolean isActive;
 	
 	
-	@ManyToMany(mappedBy = "category")
-	private List<EsProduct> esProduct;
+//	@ManyToMany(mappedBy = "category")
+//	private List<EsProduct> esProduct;
 	
 	
 	
@@ -55,16 +57,16 @@ public class EsCategory {
 	
 	
 
-	public EsCategory(int categoryId, String categoryName, String description, int pictureId, boolean isActive,
-			List<EsProduct> esProduct) {
-		super();
-		this.categoryId = categoryId;
-		this.categoryName = categoryName;
-		this.description = description;
-		this.pictureId = pictureId;
-		this.isActive = isActive;
-		this.esProduct = esProduct;
-	}
+//	public EsCategory(int categoryId, String categoryName, String description, int pictureId, boolean isActive,
+//			List<EsProduct> esProduct) {
+//		super();
+//		this.categoryId = categoryId;
+//		this.categoryName = categoryName;
+//		this.description = description;
+//		this.pictureId = pictureId;
+//		this.isActive = isActive;
+//		this.esProduct = esProduct;
+//	}
 	
 	
 
@@ -76,13 +78,13 @@ public class EsCategory {
 		this.categoryId = categoryId;
 	}
 
-	public List<EsProduct> getEsProduct() {
-		return esProduct;
-	}
-
-	public void setEsProduct(List<EsProduct> esProduct) {
-		this.esProduct = esProduct;
-	}
+//	public List<EsProduct> getEsProduct() {
+//		return esProduct;
+//	}
+//
+//	public void setEsProduct(List<EsProduct> esProduct) {
+//		this.esProduct = esProduct;
+//	}
 
 	public int getCategoyId() {
 		return categoryId;
@@ -124,7 +126,7 @@ public class EsCategory {
 	}
 
 
-	public boolean isActive() {
+	public boolean getIsActive() {
 		return isActive;
 	}
 
@@ -144,7 +146,6 @@ public class EsCategory {
 		result = prime * result + categoryId;
 		result = prime * result + ((categoryName == null) ? 0 : categoryName.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
-		result = prime * result + ((esProduct == null) ? 0 : esProduct.hashCode());
 		result = prime * result + (isActive ? 1231 : 1237);
 		result = prime * result + pictureId;
 		return result;
@@ -171,11 +172,6 @@ public class EsCategory {
 				return false;
 		} else if (!description.equals(other.description))
 			return false;
-		if (esProduct == null) {
-			if (other.esProduct != null)
-				return false;
-		} else if (!esProduct.equals(other.esProduct))
-			return false;
 		if (isActive != other.isActive)
 			return false;
 		if (pictureId != other.pictureId)
@@ -186,7 +182,7 @@ public class EsCategory {
 	@Override
 	public String toString() {
 		return "EsCategory [categoryId=" + categoryId + ", categoryName=" + categoryName + ", description="
-				+ description + ", pictureId=" + pictureId + ", isActive=" + isActive + ", esProduct=" + esProduct
+				+ description + ", pictureId=" + pictureId + ", isActive=" + isActive 
 				+ "]";
 	}
 

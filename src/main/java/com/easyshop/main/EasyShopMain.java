@@ -33,17 +33,42 @@ public class EasyShopMain {
 //
 //		userDAO.registerUser(esUser);
 		
+		EsCategory esCategory = new EsCategory("Phone","Electronics item",1,true);
 		
-		EsColor esColor = new EsColor("Balck");
 		
-		EsSize esSize = new EsSize("Large");
+		//EsColor esColor = new EsColor("Black");
+		EsColor esColor = new EsColor();
+		esColor.setId(1);
+		esColor.setColorName("Black");
+		//EsColor esColor1 = new EsColor("Red");
+//		EsColor esColor2 = new EsColor("Blue",null);
+//		EsColor esColor3 = new EsColor("White",null);
+//		EsColor esColor4 = new EsColor("Yello",null);
+//		
+//		
+//		
+		//EsSize esSize = new EsSize("Large");
+		EsSize esSize = new EsSize();
+		esSize.setId(1);
+		esSize.setSizename("Large");
+		//EsSize esSize1 = new EsSize("medium");
+//		
+//		EsCategory esCategory = new EsCategory("Phone", "All Brand", 1, true);
+//		list.add(esCategory);
+//		
+		EsProduct esProduct = new EsProduct(34578, "iphone7", "iphone11 64 gb", "Apple product", "K23412346", 775.00, esSize, esColor , 0.20, 12, 1, 10, true, true, now, 1, 1, "Good", esCategory);
+
 		
-		EsCategory esCategory = new EsCategory("Phone", "All Brand", 1, true);
-		list.add(esCategory);
-		
-		EsProduct esProduct = new EsProduct(34562, "iphone11", "iphone11 64 gb", "Apple product", "K23412337", 900.00, esSize, esColor, 0.20, 12, 1, 10, true, true, now, 1, 1, "Good", list);
-		
+		EsProduct esProduct2 = new EsProduct(34579, "iphoneXR", "iphone11 64 gb", "Apple product", "K23412347", 600.00, esSize, esColor , 0.20, 12, 1, 10, true, true, now, 1, 1, "Good", esCategory);
+//		
 		productDAO.addProduct(esProduct);
+		productDAO.addProduct(esProduct2);
+		
+		//productDAO.addColor(esColor);
+//		productDAO.addColor(esColor1);
+//		productDAO.addColor(esColor2);
+//		productDAO.addColor(esColor3);
+//		productDAO.addColor(esColor4);
 		
 		
 	}
