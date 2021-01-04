@@ -15,8 +15,6 @@ public class LoginService {
 		return eu;
 	}
 
-
-	
 	public boolean create(EsUser esUser) {	
 		if(userDAO.registerUser(esUser)) {
 			return true;

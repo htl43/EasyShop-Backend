@@ -34,9 +34,8 @@ public class UserDAOImpl implements UserDAO{
 			return null;
 		}	
 		
+
 	}
-
-
 
 	@Override
 	public boolean registerUser(EsUser esUser) {
@@ -48,6 +47,7 @@ public class UserDAOImpl implements UserDAO{
 		} catch (Exception e){
 			log.warn(e);
 			return false;
+
 		}			
 	}
 

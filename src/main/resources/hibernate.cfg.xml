@@ -10,6 +10,7 @@
         <!-- JDBC -->
         <property name="hibernate.connection.username">postgres</property>
         <property name="hibernate.connection.password">baohieu1984</property>
+        
         <property name="hibernate.connection.url">jdbc:postgresql://database-1.ckkj5dk7yaq3.us-east-2.rds.amazonaws.com/postgres</property>
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
         
@@ -35,10 +36,12 @@
         <mapping class="com.easyshop.models.EsUser"/>
         <mapping class="com.easyshop.models.EsUserContact"/>
         
-        <!--
-        <mapping class="com.revature.models.Team"/>
+        <mapping class="com.easyshop.models.EsProduct"/>
+        <mapping class="com.easyshop.models.EsColor"/>
+        <mapping class="com.easyshop.models.EsSize"/>
+        <mapping class="com.easyshop.models.EsCategory"/>
         
-        -->
+        
    
    </session-factory>
 

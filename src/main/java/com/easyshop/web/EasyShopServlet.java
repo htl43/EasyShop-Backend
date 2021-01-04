@@ -11,12 +11,15 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import com.easyshop.controllers.LoginController;
+import com.easyshop.controllers.ProductController;
 
 
 
 public class EasyShopServlet extends HttpServlet{
 	
 	private LoginController loginController = new LoginController();
+	
+	private ProductController productController = new ProductController();
 	
 	private static Logger log=Logger.getLogger(EasyShopServlet.class);
 	
@@ -34,7 +37,6 @@ public class EasyShopServlet extends HttpServlet{
 	  final String URI = request.getRequestURI().replace("/EasyShop/","");
 	  
 	  switch(URI) {
-	  
 	  	case "login" :		  
 			  log.info("login request is invoked !!....");
 			  loginController.login(request,response);
@@ -44,8 +46,25 @@ public class EasyShopServlet extends HttpServlet{
 	  		  System.out.println("Register is invoked!!");
 			  log.info("Register request is invoked !!....");
 			  loginController.registerUser(request, response);
-			  break;    
-		  
+
+			  break;
+			  
+	  	case "addProduct" :
+	  		  System.out.println("addProduct is invoked!!");
+			  log.info("addProduct request is invoked !!....");
+			  productController.addProduct(request, response);
+
+			  break;
+//			  
+//	  	case "category" :
+//	  		  System.out.println("Register is invoked!!");
+//			  log.info("Register request is invoked !!....");
+//			  loginController.registerUser(request, response);
+//
+//			  break;	
+			  
+			  
+
 	  }
 	  
   }
