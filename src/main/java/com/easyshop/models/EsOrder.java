@@ -32,9 +32,9 @@ public class EsOrder {
 	@Column(nullable = false)
 	private Date lastLoginDate;
 	
-	@ManyToOne (fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	@JoinColumn(name = "cartId")
-	private EsCart cart;
+//	@ManyToOne (fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+//	@JoinColumn(name = "cartId")
+//	private EsCart cart;
 		
 	
 }

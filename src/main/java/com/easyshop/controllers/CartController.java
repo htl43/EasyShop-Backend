@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
+import com.easyshop.models.EsCart;
 import com.easyshop.models.EsProduct;
 import com.easyshop.services.CartService;
 import com.fasterxml.jackson.core.JsonParser.Feature;
@@ -39,10 +40,10 @@ public class CartController {
 			String body = new String(sb);
 			System.out.println(body);
 			
-			EsProduct product = objectMapper.readValue(body, EsProduct.class);
-			System.out.println(product);
+			EsCart cart = objectMapper.readValue(body, EsCart.class);
+			System.out.println(cart);
 			
-			if(cartService.addToCart(product)) { //if addToCart method returns true (indicating successful add)
+			if(cartService.addToCart(cart)) { //if addToCart method returns true (indicating successful add)
 				res.setStatus(200);
 				res.getWriter().print("Product added to Cart!");
 			}else {
@@ -63,10 +64,10 @@ public class CartController {
 	}
 	
 	public void viewCartItems(HttpServletRequest req, HttpServletResponse res) throws IOException {
-		List<EsProduct> list = cartService.showCartItems(cartId);
-		String json = om.writeValueAsString(list);
-		res.getWriter().print(json);
-		res.setStatus(200);
+//		List<EsProduct> list = cartService.showCartItems(req);
+//		String json = objectMapper.writeValueAsString(list);
+//		res.getWriter().print(json);
+//		res.setStatus(200);
 	}
 	
 }

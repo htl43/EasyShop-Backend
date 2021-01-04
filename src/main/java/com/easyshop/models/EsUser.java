@@ -38,16 +38,16 @@ public class EsUser {
 	@JoinColumn(name="user_contact_id")
 	private EsUserContact userContact;
 	
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name="es_cart")
-	private EsCart userCart;
+//	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//	@JoinColumn(name="es_cart")
+//	private EsCart userCart;
 
 	public EsUser() {
 		super();
 	}
 
 	public EsUser(int id, String username, String password, Date registedDate, Date lastLoginDate,
-			EsUserContact userContact, EsCart userCart) {
+			EsUserContact userContact) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -55,7 +55,6 @@ public class EsUser {
 		this.registedDate = registedDate;
 		this.lastLoginDate = lastLoginDate;
 		this.userContact = userContact;
-		this.userCart = userCart;
 	}
 
 	public EsUser(String username, String password, Date registedDate, Date lastLoginDate, EsUserContact userContact,
@@ -66,7 +65,13 @@ public class EsUser {
 		this.registedDate = registedDate;
 		this.lastLoginDate = lastLoginDate;
 		this.userContact = userContact;
-		this.userCart = userCart;
+	}
+
+	
+	
+	public EsUser(int id) {
+		super();
+		this.id = id;
 	}
 
 	@Override
@@ -77,7 +82,6 @@ public class EsUser {
 		result = prime * result + ((lastLoginDate == null) ? 0 : lastLoginDate.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((registedDate == null) ? 0 : registedDate.hashCode());
-		result = prime * result + ((userCart == null) ? 0 : userCart.hashCode());
 		result = prime * result + ((userContact == null) ? 0 : userContact.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
@@ -109,11 +113,6 @@ public class EsUser {
 				return false;
 		} else if (!registedDate.equals(other.registedDate))
 			return false;
-		if (userCart == null) {
-			if (other.userCart != null)
-				return false;
-		} else if (!userCart.equals(other.userCart))
-			return false;
 		if (userContact == null) {
 			if (other.userContact != null)
 				return false;
@@ -127,11 +126,12 @@ public class EsUser {
 		return true;
 	}
 
+
+
 	@Override
 	public String toString() {
 		return "EsUser [id=" + id + ", username=" + username + ", password=" + password + ", registedDate="
-				+ registedDate + ", lastLoginDate=" + lastLoginDate + ", userContact=" + userContact + ", userCart="
-				+ userCart + "]";
+				+ registedDate + ", lastLoginDate=" + lastLoginDate + ", userContact=" + userContact + "]";
 	}
 
 	public int getId() {
@@ -182,13 +182,7 @@ public class EsUser {
 		this.userContact = userContact;
 	}
 
-	public EsCart getUserCart() {
-		return userCart;
-	}
 
-	public void setUserCart(EsCart userCart) {
-		this.userCart = userCart;
-	}
 
 	
 	

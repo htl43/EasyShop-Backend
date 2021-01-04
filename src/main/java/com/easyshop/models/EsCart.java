@@ -24,61 +24,69 @@ public class EsCart {
 	private int cartId;
 	
 	@Column(nullable = false)
-	private int finalPrice;
+	private double finalPrice;
 	
 	@Column(nullable = false)
 	private Date dateAdded;
 	
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="id")
-	private EsUserContact userId;
+	private EsUser esUserId;
 	
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="productId")
 	private EsProduct product;
 	
-	@OneToMany(mappedBy="EsOrder", fetch=FetchType.EAGER)
-	private List<EsOrder> orderedProducts;
+//	@OneToMany(mappedBy="EsOrder", fetch=FetchType.EAGER)
+//	private List<EsOrder> orderedProducts;
 
 	public EsCart() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public EsCart(int cartId, int finalPrice, Date dateAdded, EsUserContact userId, List<EsOrder> orderedProducts) {
+	public EsCart(int cartId, double finalPrice, Date dateAdded, EsUser esUserId, EsProduct product) {
 		super();
 		this.cartId = cartId;
 		this.finalPrice = finalPrice;
 		this.dateAdded = dateAdded;
-		this.userId = userId;
-		this.orderedProducts = orderedProducts;
+		this.esUserId = esUserId;
+		this.product = product;
+
 	}
 
-	public EsCart(int finalPrice, Date dateAdded, EsUserContact userId, List<EsOrder> orderedProducts) {
+	public EsCart(double finalPrice, Date dateAdded, EsUser esUserId, EsProduct product,
+			List<EsOrder> orderedProducts) {
 		super();
 		this.finalPrice = finalPrice;
 		this.dateAdded = dateAdded;
-		this.userId = userId;
-		this.orderedProducts = orderedProducts;
+		this.esUserId = esUserId;
+		this.product = product;
+
 	}
+
+
 
 	@Override
 	public String toString() {
-		return "EsCart [cartId=" + cartId + ", finalPrice=" + finalPrice + ", dateAdded=" + dateAdded + ", userId="
-				+ userId + ", orderedProducts=" + orderedProducts + "]";
+		return "EsCart [cartId=" + cartId + ", finalPrice=" + finalPrice + ", dateAdded=" + dateAdded + ", esUserId="
+				+ esUserId + ", product=" + product + "]";
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + cartId;
-		result = prime * result + ((dateAdded == null) ? 0 : dateAdded.hashCode());
-		result = prime * result + finalPrice;
-		result = prime * result + ((orderedProducts == null) ? 0 : orderedProducts.hashCode());
-		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
-		return result;
-	}
+//	@Override
+//	public int hashCode() {
+//		final int prime = 31;
+//		int result = 1;
+//		result = prime * result + cartId;
+//		result = prime * result + ((dateAdded == null) ? 0 : dateAdded.hashCode());
+//		result = prime * result + ((esUserId == null) ? 0 : esUserId.hashCode());
+//		long temp;
+//		temp = Double.doubleToLongBits(finalPrice);
+//		result = prime * result + (int) (temp ^ (temp >>> 32));
+//		result = prime * result + ((orderedProducts == null) ? 0 : orderedProducts.hashCode());
+//		result = prime * result + ((product == null) ? 0 : product.hashCode());
+//		return result;
+//	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -96,17 +104,17 @@ public class EsCart {
 				return false;
 		} else if (!dateAdded.equals(other.dateAdded))
 			return false;
-		if (finalPrice != other.finalPrice)
-			return false;
-		if (orderedProducts == null) {
-			if (other.orderedProducts != null)
+		if (esUserId == null) {
+			if (other.esUserId != null)
 				return false;
-		} else if (!orderedProducts.equals(other.orderedProducts))
+		} else if (!esUserId.equals(other.esUserId))
 			return false;
-		if (userId == null) {
-			if (other.userId != null)
+		if (Double.doubleToLongBits(finalPrice) != Double.doubleToLongBits(other.finalPrice))
+			return false;
+		if (product == null) {
+			if (other.product != null)
 				return false;
-		} else if (!userId.equals(other.userId))
+		} else if (!product.equals(other.product))
 			return false;
 		return true;
 	}
@@ -119,11 +127,11 @@ public class EsCart {
 		this.cartId = cartId;
 	}
 
-	public int getFinalPrice() {
+	public double getFinalPrice() {
 		return finalPrice;
 	}
 
-	public void setFinalPrice(int finalPrice) {
+	public void setFinalPrice(double finalPrice) {
 		this.finalPrice = finalPrice;
 	}
 
@@ -135,21 +143,29 @@ public class EsCart {
 		this.dateAdded = dateAdded;
 	}
 
-	public EsUserContact getUserId() {
-		return userId;
+	public EsUser getEsUserId() {
+		return esUserId;
 	}
 
-	public void setUserId(EsUserContact userId) {
-		this.userId = userId;
+	public void setEsUserId(EsUser esUserId) {
+		this.esUserId = esUserId;
 	}
 
-	public List<EsOrder> getOrderedProducts() {
-		return orderedProducts;
+	public EsProduct getProduct() {
+		return product;
 	}
 
-	public void setOrderedProducts(List<EsOrder> orderedProducts) {
-		this.orderedProducts = orderedProducts;
+	public void setProduct(EsProduct product) {
+		this.product = product;
 	}
+
+
+	public EsCart(int cartId) {
+		super();
+		this.cartId = cartId;
+	}
+
+	
 	
 	
 	

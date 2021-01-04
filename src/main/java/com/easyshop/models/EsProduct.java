@@ -68,6 +68,14 @@ public class EsProduct {
 		
 	}
 
+	
+	
+	public EsProduct(int productId) {
+		super();
+		this.productId = productId;
+	}
+
+
 
 	public EsProduct(int productId, int sKU, String productName, String metaTitle, String description, String modelNo,
 			double unitPrice, EsSize sizeId, EsColor colorId, double discount, int unitWeight, int onOrder,
@@ -121,6 +129,8 @@ public class EsProduct {
 		this.note = note;
 		this.categoryId = categoryId;
 	}
+	
+	
 
 	public int getProductId() {
 		return productId;

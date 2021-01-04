@@ -1,9 +1,16 @@
 package com.easyshop.main;
 
+import java.sql.Date;
+import java.util.List;
+
 import com.easyshop.dao.CartDAO;
 import com.easyshop.dao.UserDAO;
 import com.easyshop.dao.impl.CartDAOImpl;
 import com.easyshop.dao.impl.UserDAOImpl;
+import com.easyshop.models.EsCart;
+import com.easyshop.models.EsOrder;
+import com.easyshop.models.EsProduct;
+import com.easyshop.models.EsUser;
 
 public class EasyShopMain {
 	
@@ -23,10 +30,20 @@ public class EasyShopMain {
 		//declare the cart variables
 		//EsProduct product = bunch of product variables
 		
-		//cartDAO.addToCart(product);
 		
 		
+		int cartId = 1;
+		double finalPrice = 600.10;
+		Date dateAdded = new Date(new java.util.Date().getTime());
+		EsUser user = new EsUser(1);
+		//int userId = user.getId();
+		EsProduct product = new EsProduct(1);
+		//List<EsOrder> orderedProducts = null;
+		
+		EsCart ec = new EsCart(cartId, finalPrice, dateAdded, user, product);
 
+		cartDAO.addToCart(ec);
+		
 	}
 
 }
