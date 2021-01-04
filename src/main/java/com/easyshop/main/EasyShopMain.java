@@ -36,7 +36,6 @@ public class EasyShopMain {
 		double finalPrice = 600.10;
 		Date dateAdded = new Date(new java.util.Date().getTime());
 		EsUser user = new EsUser(1);
-		//int userId = user.getId();
 		EsProduct product = new EsProduct(1);
 		//List<EsOrder> orderedProducts = null;
 		

@@ -41,6 +41,8 @@
         <mapping class="com.easyshop.models.EsSize"/>
         <mapping class="com.easyshop.models.EsCategory"/>
         
+        <mapping class="com.easyshop.models.EsCart"/>
+        
         
    
    </session-factory>
