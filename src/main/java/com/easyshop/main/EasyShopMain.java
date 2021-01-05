@@ -26,20 +26,16 @@ public class EasyShopMain {
 //		
 //		userDAO.registerUser(esUser);
 		
-		
-		//declare the cart variables
-		//EsProduct product = bunch of product variables
-		
-		
+
 		
 		int cartId = 1;
-		double finalPrice = 600.10;
+		double finalPrice = 300.00;
 		Date dateAdded = new Date(new java.util.Date().getTime());
-		EsUser user = new EsUser(1);
+		EsUser esUser = new EsUser(2);
 		EsProduct product = new EsProduct(1);
 		//List<EsOrder> orderedProducts = null;
 		
-		EsCart ec = new EsCart(cartId, finalPrice, dateAdded, user, product);
+		EsCart ec = new EsCart(cartId, finalPrice, dateAdded, esUser, product);
 
 		cartDAO.addToCart(ec);
 		

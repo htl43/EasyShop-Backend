@@ -9,6 +9,6 @@ public interface CartDAO {
 
 	public boolean addToCart(EsCart cart);
 	
-	public List<EsProduct> showCartItems (int cartId);
+	public List<EsCart> showCartItems (int userId);
 	
 }

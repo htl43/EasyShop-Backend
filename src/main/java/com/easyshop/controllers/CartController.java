@@ -64,10 +64,13 @@ public class CartController {
 	}
 	
 	public void viewCartItems(HttpServletRequest req, HttpServletResponse res) throws IOException {
-//		List<EsProduct> list = cartService.showCartItems(req);
-//		String json = objectMapper.writeValueAsString(list);
-//		res.getWriter().print(json);
-//		res.setStatus(200);
+		
+		int userId = 1; //somehow get userId
+		
+		List<EsCart> list = cartService.showCartItems(userId); //how to get userId for the parameter? EsUser.getId()?
+		String json = objectMapper.writeValueAsString(list);
+		res.getWriter().print(json);
+		res.setStatus(200);
 	}
 	
 }

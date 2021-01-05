@@ -17,8 +17,8 @@ public class CartService {
 		}else {return false;}
 	}
 	
-	public List<EsProduct> showCartItems(int cartId) {
-		return cartDAO.showCartItems(cartId);
+	public List<EsCart> showCartItems(int userId) {
+		return cartDAO.showCartItems(userId);
 	}
 	
 }
