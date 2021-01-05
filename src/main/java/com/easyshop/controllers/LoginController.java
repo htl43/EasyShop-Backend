@@ -51,7 +51,7 @@ public class LoginController {
 		System.out.println("Get User Login:" + userLogin.toString());		
 		EsUser esUser = loginService.isLogin(userLogin);
 		if(esUser!=null) {		
-			esUser.setPassword(""); // send empty password to fron-tend
+			esUser.setPassword(""); // send empty password to frontend
 			String json = objectMapper.writeValueAsString(esUser);
 			response.getWriter().print(json);
 			response.setStatus(200);		

@@ -38,7 +38,6 @@ public class EsUser {
 	
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name="user_contact_id")
-	@JsonBackReference
 	private EsUserContact userContact;
 
 	public EsUser() {
