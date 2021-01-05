@@ -18,14 +18,15 @@
         <property name="hibernate.default_schema">easy_shop</property>
         
         <!-- Hibernate console output -->
-        <property name="hibernate.show_sql">true</property>
-        <property name="hibernate.format_sql">true</property>
+<!--         <property name="hibernate.show_sql">true</property> -->
+<!--         <property name="hibernate.format_sql">true</property> -->
         
         <!-- DDL -->
         <!--  Update    -->
         <property name="hibernate.hbm2ddl.auto">update</property>
         
-        
+        <!--  Create    -->
+        <!-- <property name="hibernate.hbm2ddl.auto">create</property> -->
       
         <!-- delete existing table and create again 
          <property name="hibernate.hbm2ddl.auto">create </property>

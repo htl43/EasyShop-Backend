@@ -13,6 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "es_user")
 public class EsUser {
@@ -20,9 +23,8 @@ public class EsUser {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id ;
-	//private int contactId;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, unique=true)
 	private String username;
 	
 	@Column(nullable = false)
@@ -36,6 +38,7 @@ public class EsUser {
 	
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name="user_contact_id")
+	@JsonBackReference
 	private EsUserContact userContact;
 
 	public EsUser() {
