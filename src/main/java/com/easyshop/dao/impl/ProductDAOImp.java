@@ -1,5 +1,7 @@
 package com.easyshop.dao.impl;
 
+import java.util.List;
+
 import org.hibernate.Session;
 
 import com.easyshop.dao.ProductDAO;
@@ -37,6 +39,52 @@ public class ProductDAOImp implements ProductDAO {
 	   }catch(Exception e) {
 		return false;
 	   }
+	}
+
+	@Override
+	public List<EsProduct> getAllProduct() {
+
+		Session ses = HibernateUtil.getSession();
+		
+		try {
+			
+			System.out.println("getAllProduct DAO is invoked ..");
+			
+			List<EsProduct> esProductList = ses.createQuery("FROM EsProduct").list();
+			
+			return esProductList;
+			
+		}catch(Exception e) {
+			
+			
+			return null;
+		}
+		
+		
+	}
+
+	@Override
+	public List<EsProduct> getProductByCategoryId(EsProduct esProduct) {
+		
+		Session ses = HibernateUtil.getSession();
+	
+	   try {
+			
+			System.out.println("getAllProduct DAO is invoked ..");
+			
+			
+			
+			List<EsProduct> esProductList = ses.createQuery("From EsProduct Where categoryId =" + esProduct.getCategoryId().getCategoryId()).list();
+			
+			//List<EsProduct> esProductList = ses.get(EsProduct.class,esProduct.getCategoryId().getCategoryId());
+			
+			return esProductList;
+			
+		}catch(Exception e) {
+			
+			
+			return null;
+		}
 	}
 
 }

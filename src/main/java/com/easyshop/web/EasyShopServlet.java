@@ -55,6 +55,20 @@ public class EasyShopServlet extends HttpServlet{
 			  productController.addProduct(request, response);
 
 			  break;
+			  
+	  	case "getProduct" :
+	  		  System.out.println("getProduct is invoked!!");
+			  log.info("getProduct request is invoked !!....");
+			  productController.getProduct(request, response);
+
+			  break;
+			  
+	  	case "getProductByCategoryId" :
+	  		  System.out.println("getProductByCategoryId is invoked!!");
+			  log.info("getProductByCategoryId request is invoked !!....");
+			  productController.getProductByCategoryId(request, response);
+
+			  break;
 //			  
 //	  	case "category" :
 //	  		  System.out.println("Register is invoked!!");
