@@ -2,6 +2,7 @@ package com.easyshop.controllers;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +14,7 @@ import com.easyshop.models.EsProduct;
 import com.easyshop.models.EsUser;
 import com.easyshop.services.ProductService;
 import com.fasterxml.jackson.core.JsonParser.Feature;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ProductController {
@@ -61,5 +63,55 @@ public class ProductController {
 		
 		
 	}
+
+	public void getProduct(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	  
+		  List<EsProduct> esProductList = productService.getAllProduct();
+		  
+		  String json = objectMapper.writeValueAsString(esProductList);
+		  
+		  response.getWriter().print(json);
+		
+		  
+		  response.setStatus(200);
+		
+	}
+
+	public void getProductByCategoryId(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+	   if(request.getMethod().equals("POST")) {
+			
+            BufferedReader bufferReader = request.getReader();
+			
+			StringBuilder stringBuilder = new StringBuilder();
+			
+			String line = bufferReader.readLine();
+			
+			while(line != null) {
+				stringBuilder.append(line);
+				line = bufferReader.readLine();
+			}
+			
+			String body = new String(stringBuilder);
+			
+			log.info( "String Body "+body);
+			
+			EsProduct esProduct = objectMapper.readValue(body, EsProduct.class);
+			
+			System.out.println(esProduct);
+		
+		    List<EsProduct> esProductList = productService.getProductByCategoryId(esProduct);
+		   
+		    String json = objectMapper.writeValueAsString(esProductList);
+		  
+		    response.getWriter().print(json);
+		
+		  
+		    response.setStatus(200);
+	    }
+	
+	   
+	}
+	
 
 }
