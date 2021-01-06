@@ -32,7 +32,8 @@ public class CartDAOImpl implements CartDAO {
 		Session ses = HibernateUtil.getSession();
 		try {
 			List<EsCart> esCartList = (List<EsCart>) ses.createQuery(
-				"FROM es_cart where es_user.id =\'" + esUserId + "'\'"); //is this correct lol
+				"FROM es_cart").list(); //es_cart where es_user.id =\'" + esUserId + "\'"); 
+			//until we can correctly map cart with user, the cartDAO methods won't work so the cart funcitonality won't work.
 			HibernateUtil.closeSession();
 			if(esCartList.size()>0) {
 				System.out.println(esCartList); //to see if it worked

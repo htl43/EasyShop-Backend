@@ -36,5 +36,4 @@ public class EsOrder {
 //	@JoinColumn(name = "cartId")
 //	private EsCart cart;
 		
-	
 }

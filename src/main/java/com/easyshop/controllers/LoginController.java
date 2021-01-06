@@ -44,14 +44,14 @@ public class LoginController {
 		
 		String body = new String(stringBuilder);
 		
-		log.info(" String Body" + body);
+		
 		
 		LoginDTO userLogin =  objectMapper.readValue(body, LoginDTO.class);
 		userLogin.password = loginService.encryptPassword(userLogin.password);
-				
+		System.out.println("Get User Login:" + userLogin.toString());		
 		EsUser esUser = loginService.isLogin(userLogin);
 		if(esUser!=null) {		
-			esUser.setPassword(""); // send empty password to fron-tend
+			esUser.setPassword(""); // send empty password to frontend
 			String json = objectMapper.writeValueAsString(esUser);
 			response.getWriter().print(json);
 			response.setStatus(200);		
@@ -62,7 +62,7 @@ public class LoginController {
 		} else {
 			response.setStatus(401);
 			response.getWriter().print("Failed logined !!......");
-			log.info("Failed logined !!......");
+			log.info("Failed logined! Please check your username and password");
 		}
 									
 	}
@@ -80,14 +80,16 @@ public class LoginController {
 			}
 			
 			String body = new String(sb);
-			EsUser ersUser = objectMapper.readValue(body, EsUser.class);
-			System.out.println(ersUser);
-			ersUser.setPassword(loginService.encryptPassword(ersUser.getPassword()));
-			if(loginService.create(ersUser)) {
+			EsUser esUser = objectMapper.readValue(body, EsUser.class);
+			esUser.setPassword(loginService.encryptPassword(esUser.getPassword()));
+			if(loginService.create(esUser)) {
 				resp.setStatus(200);
-				resp.getWriter().print("Account has been created successfully");
+				esUser.setPassword("");
+				String json = objectMapper.writeValueAsString(esUser);
+				resp.getWriter().print(json);
 			} else {
 				resp.setStatus(403);
+				resp.getWriter().print("The username is adready existed in database");
 			}											
 			
 		} else {
