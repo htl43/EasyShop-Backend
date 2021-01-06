@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import com.easyshop.controllers.CartController;
 import com.easyshop.controllers.LoginController;
 
 
@@ -17,6 +18,7 @@ import com.easyshop.controllers.LoginController;
 public class EasyShopServlet extends HttpServlet{
 	
 	private LoginController loginController = new LoginController();
+	private CartController cartController = new CartController();
 	
 	private static Logger log=Logger.getLogger(EasyShopServlet.class);
 	
@@ -45,6 +47,18 @@ public class EasyShopServlet extends HttpServlet{
 			  log.info("Register request is invoked !!....");
 			  loginController.registerUser(request, response);
 			  break;    
+			  
+	  	case "viewCart" :
+	  		  System.out.println("View cart is invoked!!");
+			  log.info("View cart request is invoked !!....");
+			  cartController.viewCartItems(request, response);
+			  break;
+			  
+	  	case "addToCart" :
+	  		  System.out.println("Add to cart is invoked!!");
+			  log.info("Add to cart request is invoked !!....");
+			  cartController.addToCart(request, response);
+			  break;
 		  
 	  }
 	  

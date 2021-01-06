@@ -3,7 +3,6 @@ package com.easyshop.dao.impl;
 import java.sql.Date;
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -14,8 +13,6 @@ import com.easyshop.models.LoginDTO;
 
 public class UserDAOImpl implements UserDAO{
 
-	private static Logger log=Logger.getLogger(UserDAOImpl.class);
-	
 	@Override
 	public EsUser isLogin(LoginDTO userLogin) {
 		
@@ -40,14 +37,11 @@ public class UserDAOImpl implements UserDAO{
 			}		
 			return esUser;
 		} catch (Exception e){
-			log.warn(e);
 			trans.rollback();
 			return null;
 		}	
 		
 	}
-
-
 
 	@Override
 	public boolean registerUser(EsUser esUser) {
@@ -60,14 +54,12 @@ public class UserDAOImpl implements UserDAO{
 			ses.save(esUser);
 			ses.flush();
 			trans.commit();
-
 			return true;
 		} catch (Exception e){
-			log.warn(e);
 			trans.rollback();
 			return false;
+
 		}
-		
 	}
 
 }

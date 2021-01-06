@@ -98,7 +98,9 @@ public class LoginController {
 				ses.invalidate();
 			}
 			resp.setStatus(400);
+
 			resp.getWriter().print("Bad Requested Using Http GET Method");	
+
 		}
 		
 	}
