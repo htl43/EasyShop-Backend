@@ -14,5 +14,12 @@ public class LoginDTO {
 		this.username = username;
 		this.password = password;
 	}
+
+	@Override
+	public String toString() {
+		return "LoginDTO [username=" + username + ", password=" + password + "]";
+	}
+	
+	
 	
 }

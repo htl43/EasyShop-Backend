@@ -10,6 +10,7 @@
         <!-- JDBC -->
         <property name="hibernate.connection.username">postgres</property>
         <property name="hibernate.connection.password">baohieu1984</property>
+        
         <property name="hibernate.connection.url">jdbc:postgresql://database-1.ckkj5dk7yaq3.us-east-2.rds.amazonaws.com/postgres</property>
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
         
@@ -18,14 +19,15 @@
         <property name="hibernate.default_schema">easy_shop</property>
         
         <!-- Hibernate console output -->
-        <property name="hibernate.show_sql">true</property>
-        <property name="hibernate.format_sql">true</property>
+<!--         <property name="hibernate.show_sql">true</property> -->
+<!--         <property name="hibernate.format_sql">true</property> -->
         
         <!-- DDL -->
         <!--  Update    -->
         <property name="hibernate.hbm2ddl.auto">update</property>
         
-        
+        <!--  Create    -->
+        <!-- <property name="hibernate.hbm2ddl.auto">create</property> -->
       
         <!-- delete existing table and create again 
          <property name="hibernate.hbm2ddl.auto">create </property>
@@ -35,10 +37,14 @@
         <mapping class="com.easyshop.models.EsUser"/>
         <mapping class="com.easyshop.models.EsUserContact"/>
         
-        <!--
-        <mapping class="com.revature.models.Team"/>
+        <mapping class="com.easyshop.models.EsProduct"/>
+        <mapping class="com.easyshop.models.EsColor"/>
+        <mapping class="com.easyshop.models.EsSize"/>
+        <mapping class="com.easyshop.models.EsCategory"/>
         
-        -->
+        <mapping class="com.easyshop.models.EsCart"/>
+        
+        
    
    </session-factory>
 

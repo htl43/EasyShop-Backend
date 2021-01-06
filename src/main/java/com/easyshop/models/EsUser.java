@@ -13,6 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "es_user")
 public class EsUser {
@@ -20,9 +23,8 @@ public class EsUser {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id ;
-	//private int contactId;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, unique=true)
 	private String username;
 	
 	@Column(nullable = false)
@@ -37,6 +39,10 @@ public class EsUser {
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name="user_contact_id")
 	private EsUserContact userContact;
+	
+//	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//	@JoinColumn(name="es_cart")
+//	private EsCart userCart;
 
 	public EsUser() {
 		super();
@@ -53,7 +59,8 @@ public class EsUser {
 		this.userContact = userContact;
 	}
 
-	public EsUser(String username, String password, Date registedDate, Date lastLoginDate, EsUserContact userContact) {
+	public EsUser(String username, String password, Date registedDate, Date lastLoginDate, EsUserContact userContact,
+			EsCart userCart) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -62,52 +69,11 @@ public class EsUser {
 		this.userContact = userContact;
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
+	
+	
+	public EsUser(int id) {
+		super();
 		this.id = id;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public Date getRegistedDate() {
-		return registedDate;
-	}
-
-	public void setRegistedDate(Date registedDate) {
-		this.registedDate = registedDate;
-	}
-
-	public Date getLastLoginDate() {
-		return lastLoginDate;
-	}
-
-	public void setLastLoginDate(Date lastLoginDate) {
-		this.lastLoginDate = lastLoginDate;
-	}
-
-	public EsUserContact getUserContact() {
-		return userContact;
-	}
-
-	public void setUserContact(EsUserContact userContact) {
-		this.userContact = userContact;
 	}
 
 	@Override
@@ -162,11 +128,64 @@ public class EsUser {
 		return true;
 	}
 
+
+
 	@Override
 	public String toString() {
 		return "EsUser [id=" + id + ", username=" + username + ", password=" + password + ", registedDate="
 				+ registedDate + ", lastLoginDate=" + lastLoginDate + ", userContact=" + userContact + "]";
 	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Date getRegistedDate() {
+		return registedDate;
+	}
+
+	public void setRegistedDate(Date registedDate) {
+		this.registedDate = registedDate;
+	}
+
+	public Date getLastLoginDate() {
+		return lastLoginDate;
+	}
+
+	public void setLastLoginDate(Date lastLoginDate) {
+		this.lastLoginDate = lastLoginDate;
+	}
+
+	public EsUserContact getUserContact() {
+		return userContact;
+	}
+
+	public void setUserContact(EsUserContact userContact) {
+		this.userContact = userContact;
+	}
+
+
+
 	
 	
 	

@@ -10,13 +10,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import com.easyshop.controllers.CartController;
 import com.easyshop.controllers.LoginController;
+import com.easyshop.controllers.ProductController;
 
 
 
 public class EasyShopServlet extends HttpServlet{
 	
 	private LoginController loginController = new LoginController();
+	private CartController cartController = new CartController();
+	private ProductController productController = new ProductController();
 	
 	private static Logger log=Logger.getLogger(EasyShopServlet.class);
 	
@@ -45,6 +49,41 @@ public class EasyShopServlet extends HttpServlet{
 			  log.info("Register request is invoked !!....");
 			  loginController.registerUser(request, response);
 			  break;    
+			  
+	  	case "viewCart" :
+	  		  System.out.println("View cart is invoked!!");
+			  log.info("View cart request is invoked !!....");
+			  cartController.viewCartItems(request, response);
+			  break;
+
+			  
+	  	case "getProduct" :
+	  		  System.out.println("getProduct is invoked!!");
+			  log.info("getProduct request is invoked !!....");
+			  productController.getProduct(request, response);
+
+			  break;
+			  
+	  	case "getProductByCategoryId" :
+	  		  System.out.println("getProductByCategoryId is invoked!!");
+			  log.info("getProductByCategoryId request is invoked !!....");
+			  productController.getProductByCategoryId(request, response);
+
+			  break;
+//			  
+//	  	case "category" :
+//	  		  System.out.println("Register is invoked!!");
+//			  log.info("Register request is invoked !!....");
+//			  loginController.registerUser(request, response);
+//
+//			  break;	
+			  
+			  
+	  	case "addToCart" :
+	  		  System.out.println("Add to cart is invoked!!");
+			  log.info("Add to cart request is invoked !!....");
+			  cartController.addToCart(request, response);
+			  break;
 		  
 	  }
 	  
