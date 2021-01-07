@@ -7,7 +7,12 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.easyshop.models.EsCart;
+
 class CartServiceTest {
+	
+	CartService cs = new CartService();
+	EsCart validCart = new EsCart();
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -23,12 +28,12 @@ class CartServiceTest {
 
 	@Test
 	void testAddToCart() {
-		fail("Not yet implemented");
+		assertEquals(cs.addToCart(validCart), true);
 	}
 
 	@Test
 	void testShowCartItems() {
-		fail("Not yet implemented");
+		assertNotEquals(cs.showCartItems(1), null);
 	}
 
 }

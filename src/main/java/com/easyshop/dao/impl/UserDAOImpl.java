@@ -1,14 +1,15 @@
 package com.easyshop.dao.impl;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 import com.easyshop.dao.UserDAO;
 import com.easyshop.dao.dbutil.HibernateUtil;
+import com.easyshop.models.EsCart;
 import com.easyshop.models.EsUser;
 import com.easyshop.models.LoginDTO;
 
@@ -17,29 +18,25 @@ public class UserDAOImpl implements UserDAO{
 	private static Logger log=Logger.getLogger(UserDAOImpl.class);
 
 	@Override
-	public EsUser isLogin(LoginDTO userLogin) {
-		
+	public EsUser isLogin(LoginDTO userLogin) {	
 		Session ses = HibernateUtil.getSession();
-		Transaction trans = ses.beginTransaction();
 		EsUser esUser = null;
-		List<EsUser> esUserList = null;
 		long current = System.currentTimeMillis();
 		Date now = new Date(current);
 		try {
-			esUserList = ses.createQuery(
+			List<EsUser> esUserList = ses.createQuery(
 					"FROM EsUser e WHERE e.username=\'"+ userLogin.username +"\' AND e.password=\'" + userLogin.password +"\'")
 					.list();
+			
 			if(esUserList.size()>0 && esUserList!=null) {
 				esUser = esUserList.get(0);
 				esUser.setLastLoginDate(now);
-				ses.merge(esUser);
 			}
-			ses.flush();
-			trans.commit();
+			HibernateUtil.closeSession();
 			return esUser;
 		} catch (Exception e){
 			log.warn(e);
-			trans.rollback();
+			HibernateUtil.closeSession();
 			return null;
 		}	
 		
@@ -47,26 +44,26 @@ public class UserDAOImpl implements UserDAO{
 
 	@Override
 	public boolean registerUser(EsUser esUser) {
-		System.out.println("Update User:" + esUser);
+//		List<EsCart> userCart = new ArrayList<EsCart>();
+//		esUser.setUserCartItems(userCart);
 		Session ses = HibernateUtil.getSession();
-		Transaction trans = ses.beginTransaction();
 		long current = System.currentTimeMillis();
 		Date now = new Date(current);
 		esUser.setRegistedDate(now);
 		try {
 			ses.save(esUser);
-			ses.flush();
-			trans.commit();
+			HibernateUtil.closeSession();
 			return true;
 		} catch (Exception e){
 			log.warn(e);
-			trans.rollback();
+			HibernateUtil.closeSession();
 			return false;
 		}
 	}
 
 	@Override
 	public boolean updateUser(EsUser esUser) {
+		System.out.println("Updating User:" + esUser);
 		Session ses = HibernateUtil.getSession();
 		try {
 			ses.merge(esUser);

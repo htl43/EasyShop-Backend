@@ -2,13 +2,21 @@ package com.easyshop.services;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+
 import org.junit.jupiter.api.Test;
+
+import com.easyshop.dao.impl.ProductDAOImp;
+import com.easyshop.models.EsProduct;
 
 class ProductServiceTest {
 
+	ProductService ps = new ProductService();
+	EsProduct validProduct = new EsProduct(1);
+	EsProduct invalidProduct = new EsProduct();
+	
 	@Test
 	void testValidCaseAddProduct() {
-		fail("Not yet implemented");
+		assertEquals(ps.addProduct(validProduct), true);
 	}
 	
 	@Test
@@ -18,12 +26,12 @@ class ProductServiceTest {
 
 	@Test
 	void testGetAllProduct() {
-		fail("Not yet implemented");
+		assertNotEquals(ps.getAllProduct(), null);
 	}
 
 	@Test
 	void testGetProductByCategoryId() {
-		fail("Not yet implemented");
+		assertNotEquals(ps.getProductByCategoryId(validProduct), null);
 	}
 
 }

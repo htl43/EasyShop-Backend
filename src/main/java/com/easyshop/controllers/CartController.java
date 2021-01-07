@@ -65,7 +65,7 @@ public class CartController {
 	
 	public void viewCartItems(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		
-		int userId = 1; //somehow get userId
+		int userId = 18; //somehow get userId
 		
 		List<EsCart> list = cartService.showCartItems(userId); //how to get userId for the parameter? EsUser.getId()?
 		String json = objectMapper.writeValueAsString(list);
