@@ -20,5 +20,11 @@ public class CartService {
 	public List<EsCart> showCartItems(int userId) {
 		return cartDAO.showCartItems(userId);
 	}
+
+	public boolean removeFromCart(EsCart cart) {
+		if(cartDAO.removeFromCart(cart)){
+			return true;
+		}else {return false;}
+	}
 	
 }

@@ -46,11 +46,20 @@ public class CartDAOImpl implements CartDAO {
 			return null;
 		}	
 		
-	}	
+	}
+
+	@Override
+	public boolean removeFromCart(EsCart cart) {
+		Session ses = HibernateUtil.getSession();
+		try {
+			ses.delete(cart);
+			HibernateUtil.closeSession();
+			return true; //if product successfully deleted
+		} catch (Exception e) {
+			log.warn(e);
+			return false; //if product fails to delete
+		}
+	}
 	
-	//should we just have a boolean in EsCart called "isOrdered"?
-	//and then have a method in CartDAOImpl that changes the boolean from false to true when we click order on a product
-	//and another method called showOrderedItems that returns all cart items with isOrdered = true?
-	
-	
+
 }

@@ -78,13 +78,18 @@ public class EasyShopServlet extends HttpServlet{
 //
 //			  break;	
 			  
-
 			  
 	  	case "addToCart" :
 	  		  System.out.println("Add to cart is invoked!!");
 			  log.info("Add to cart request is invoked !!....");
 			  cartController.addToCart(request, response);
 			  break;
+			  
+		case "removeCartItem" :
+	  		  System.out.println("Remove cart item is invoked!!");
+			  log.info("Remove cart item is invoked !!....");
+			  cartController.removeCartItem(request, response);
+			  break;  
 		  
 	  }
 	  

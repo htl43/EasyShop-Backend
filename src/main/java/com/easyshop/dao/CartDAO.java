@@ -10,5 +10,7 @@ public interface CartDAO {
 	public boolean addToCart(EsCart cart);
 	
 	public List<EsCart> showCartItems (int userId);
+
+	public boolean removeFromCart(EsCart cart);
 	
 }
