@@ -30,21 +30,19 @@ public class CartDAOImpl implements CartDAO {
 	@Override
 	public List<EsCart> showCartItems(int esUserId) {
 		Session ses = HibernateUtil.getSession();
+		List<EsCart> esCartList = null;
+		System.out.println("Loading item form userID=" + esUserId);
 		try {
-			List<EsCart> esCartList = ses.createQuery(
-				"FROM EsCart").list(); //es_cart where es_user.id =\'" + esUserId + "\'"); 
-			//until we can correctly map cart with user, the cartDAO methods won't work so the cart funcitonality won't work.
-			HibernateUtil.closeSession();
+//			esCartList = ses.createQuery("FROM EsCart).list();
+			esCartList = ses.createQuery("FROM EsCart  WHERE esUser.id=" + esUserId).list();
 			if(esCartList.size()>0) {
-				System.out.println(esCartList); //to see if it worked
-				return esCartList;
-			} else {
-				return null;
-			}
+				System.out.println(esCartList); //to see if it worked		
+			} 
+			return esCartList;
 		} catch (Exception e){
 			log.warn(e);
 			HibernateUtil.closeSession();
-			System.out.println("viewing cart items went wrong");
+
 			return null;
 		}	
 		
