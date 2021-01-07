@@ -74,7 +74,7 @@ public class ProductDAOImp implements ProductDAO {
 			
 			
 			
-			List<EsProduct> esProductList = ses.createQuery("From EsProduct Where categoryId =" + esProduct.getCategoryId().getCategoryId()).list();
+			List<EsProduct> esProductList = ses.createQuery("From EsProduct Where categoryId =" + esProduct.getCategoryId()).list();
 			
 			//List<EsProduct> esProductList = ses.get(EsProduct.class,esProduct.getCategoryId().getCategoryId());
 			

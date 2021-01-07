@@ -12,6 +12,11 @@ public class LoginService {
 
 	public EsUser isLogin(LoginDTO userLogin) {
 		EsUser eu = userDAO.isLogin(userLogin);
+//		if(eu!=null) {
+//			EsUser tmp = eu;
+//			System.out.println("service update user" + tmp);
+//			userDAO.updateUser(tmp);
+//		}
 		return eu;
 	}
 

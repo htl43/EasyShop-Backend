@@ -1,6 +1,7 @@
 package com.easyshop.models;
 
 import java.sql.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,10 +11,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -36,20 +37,19 @@ public class EsUser {
 	@Column(name="last_login_date")
 	private Date lastLoginDate;
 	
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinColumn(name="user_contact_id")
 	private EsUserContact userContact;
 	
-//	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//	@JoinColumn(name="es_cart")
-//	private EsCart userCart;
+	@OneToMany(mappedBy="esUser", fetch=FetchType.EAGER)
+	private List<EsCart> userCartItem;
 
 	public EsUser() {
 		super();
 	}
 
 	public EsUser(int id, String username, String password, Date registedDate, Date lastLoginDate,
-			EsUserContact userContact) {
+			EsUserContact userContact, List<EsCart> userCartItem) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -57,83 +57,18 @@ public class EsUser {
 		this.registedDate = registedDate;
 		this.lastLoginDate = lastLoginDate;
 		this.userContact = userContact;
+		this.userCartItem = userCartItem;
 	}
 
 	public EsUser(String username, String password, Date registedDate, Date lastLoginDate, EsUserContact userContact,
-			EsCart userCart) {
+			List<EsCart> userCartItem) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.registedDate = registedDate;
 		this.lastLoginDate = lastLoginDate;
 		this.userContact = userContact;
-	}
-
-	
-	
-	public EsUser(int id) {
-		super();
-		this.id = id;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + id;
-		result = prime * result + ((lastLoginDate == null) ? 0 : lastLoginDate.hashCode());
-		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + ((registedDate == null) ? 0 : registedDate.hashCode());
-		result = prime * result + ((userContact == null) ? 0 : userContact.hashCode());
-		result = prime * result + ((username == null) ? 0 : username.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		EsUser other = (EsUser) obj;
-		if (id != other.id)
-			return false;
-		if (lastLoginDate == null) {
-			if (other.lastLoginDate != null)
-				return false;
-		} else if (!lastLoginDate.equals(other.lastLoginDate))
-			return false;
-		if (password == null) {
-			if (other.password != null)
-				return false;
-		} else if (!password.equals(other.password))
-			return false;
-		if (registedDate == null) {
-			if (other.registedDate != null)
-				return false;
-		} else if (!registedDate.equals(other.registedDate))
-			return false;
-		if (userContact == null) {
-			if (other.userContact != null)
-				return false;
-		} else if (!userContact.equals(other.userContact))
-			return false;
-		if (username == null) {
-			if (other.username != null)
-				return false;
-		} else if (!username.equals(other.username))
-			return false;
-		return true;
-	}
-
-
-
-	@Override
-	public String toString() {
-		return "EsUser [id=" + id + ", username=" + username + ", password=" + password + ", registedDate="
-				+ registedDate + ", lastLoginDate=" + lastLoginDate + ", userContact=" + userContact + "]";
+		this.userCartItem = userCartItem;
 	}
 
 	public int getId() {
@@ -184,18 +119,77 @@ public class EsUser {
 		this.userContact = userContact;
 	}
 
+	public List<EsCart> getUserCartItem() {
+		return userCartItem;
+	}
 
+	public void setUserCartItem(List<EsCart> userCartItem) {
+		this.userCartItem = userCartItem;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		result = prime * result + ((lastLoginDate == null) ? 0 : lastLoginDate.hashCode());
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((registedDate == null) ? 0 : registedDate.hashCode());
+		result = prime * result + ((userCartItem == null) ? 0 : userCartItem.hashCode());
+		result = prime * result + ((userContact == null) ? 0 : userContact.hashCode());
+		result = prime * result + ((username == null) ? 0 : username.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		EsUser other = (EsUser) obj;
+		if (id != other.id)
+			return false;
+		if (lastLoginDate == null) {
+			if (other.lastLoginDate != null)
+				return false;
+		} else if (!lastLoginDate.equals(other.lastLoginDate))
+			return false;
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
+			return false;
+		if (registedDate == null) {
+			if (other.registedDate != null)
+				return false;
+		} else if (!registedDate.equals(other.registedDate))
+			return false;
+		if (userCartItem == null) {
+			if (other.userCartItem != null)
+				return false;
+		} else if (!userCartItem.equals(other.userCartItem))
+			return false;
+		if (userContact == null) {
+			if (other.userContact != null)
+				return false;
+		} else if (!userContact.equals(other.userContact))
+			return false;
+		if (username == null) {
+			if (other.username != null)
+				return false;
+		} else if (!username.equals(other.username))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "EsUser [id=" + id + ", username=" + username + ", password=" + password + ", registedDate="
+				+ registedDate + ", lastLoginDate=" + lastLoginDate + ", userContact=" + userContact + "]";
+	}
 
 	
-	
-	
-	
-	
-   
-
-	
-	
-	
-	
-
 }
