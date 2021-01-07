@@ -14,8 +14,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="es_product")
@@ -62,28 +66,27 @@ public class EsProduct {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="categoryId")
 	private EsCategory categoryId;
-
+	
+	@OneToMany(mappedBy="product", fetch=FetchType.EAGER)
+	private List<EsCart> cartItems;
+	
 	public EsProduct() {
 		super();
 		
 	}
 
-	
-	
 	public EsProduct(int productId) {
 		super();
 		this.productId = productId;
 	}
 
-
-
-	public EsProduct(int productId, int sKU, String productName, String metaTitle, String description, String modelNo,
+	public EsProduct(int productId, int sku, String productName, String metaTitle, String description, String modelNo,
 			double unitPrice, EsSize sizeId, EsColor colorId, double discount, int unitWeight, int onOrder,
 			int stockQuantity, boolean isProductAvailabe, boolean isDiscountAvailable, Date createDate, int picture,
 			int ranking, String note, EsCategory categoryId) {
 		super();
 		this.productId = productId;
-		this.sku = sKU;
+		this.sku = sku;
 		this.productName = productName;
 		this.metaTitle = metaTitle;
 		this.description = description;
@@ -104,12 +107,12 @@ public class EsProduct {
 		this.categoryId = categoryId;
 	}
 
-	public EsProduct(int sKU, String productName, String metaTitle, String description, String modelNo,
+	public EsProduct(int sku, String productName, String metaTitle, String description, String modelNo,
 			double unitPrice, EsSize sizeId, EsColor colorId, double discount, int unitWeight, int onOrder,
 			int stockQuantity, boolean isProductAvailabe, boolean isDiscountAvailable, Date createDate, int picture,
 			int ranking, String note, EsCategory categoryId) {
 		super();
-		this.sku = sKU;
+		this.sku = sku;
 		this.productName = productName;
 		this.metaTitle = metaTitle;
 		this.description = description;
@@ -129,8 +132,6 @@ public class EsProduct {
 		this.note = note;
 		this.categoryId = categoryId;
 	}
-	
-	
 
 	public int getProductId() {
 		return productId;
@@ -140,17 +141,13 @@ public class EsProduct {
 		this.productId = productId;
 	}
 
-	
-
 	public int getSku() {
 		return sku;
 	}
 
-
 	public void setSku(int sku) {
 		this.sku = sku;
 	}
-
 
 	public String getProductName() {
 		return productName;
@@ -240,7 +237,7 @@ public class EsProduct {
 		this.stockQuantity = stockQuantity;
 	}
 
-	public boolean getIsProductAvailabe() {
+	public boolean isProductAvailabe() {
 		return isProductAvailabe;
 	}
 
@@ -248,7 +245,7 @@ public class EsProduct {
 		this.isProductAvailabe = isProductAvailabe;
 	}
 
-	public boolean getIsDiscountAvailable() {
+	public boolean isDiscountAvailable() {
 		return isDiscountAvailable;
 	}
 
@@ -288,17 +285,13 @@ public class EsProduct {
 		this.note = note;
 	}
 
-	
-
 	public EsCategory getCategoryId() {
 		return categoryId;
 	}
 
-
 	public void setCategoryId(EsCategory categoryId) {
 		this.categoryId = categoryId;
 	}
-
 
 	@Override
 	public int hashCode() {
@@ -416,21 +409,9 @@ public class EsProduct {
 				+ ", sizeId=" + sizeId + ", colorId=" + colorId + ", discount=" + discount + ", unitWeight="
 				+ unitWeight + ", onOrder=" + onOrder + ", stockQuantity=" + stockQuantity + ", isProductAvailabe="
 				+ isProductAvailabe + ", isDiscountAvailable=" + isDiscountAvailable + ", createDate=" + createDate
-				+ ", picture=" + picture + ", ranking=" + ranking + ", note=" + note + ", category=" + categoryId + "]";
+				+ ", picture=" + picture + ", ranking=" + ranking + ", note=" + note + ", categoryId=" + categoryId
+				+ "]";
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }

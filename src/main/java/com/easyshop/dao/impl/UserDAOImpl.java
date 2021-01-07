@@ -44,12 +44,14 @@ public class UserDAOImpl implements UserDAO{
 
 	@Override
 	public boolean registerUser(EsUser esUser) {
-//		List<EsCart> userCart = new ArrayList<EsCart>();
-//		esUser.setUserCartItems(userCart);
+
 		Session ses = HibernateUtil.getSession();
 		long current = System.currentTimeMillis();
 		Date now = new Date(current);
 		esUser.setRegistedDate(now);
+		List<EsCart> esCarts = null;
+		esUser.setUserCartItem(esCarts);
+		System.err.println("Register User: " +esCarts);
 		try {
 			ses.save(esUser);
 			HibernateUtil.closeSession();
