@@ -80,7 +80,12 @@ public class EasyShopServlet extends HttpServlet{
 //			  loginController.registerUser(request, response);
 //
 //			  break;	
-			  
+	  	case "addProduct" :
+	  	    System.out.println("addProduct is invoked!!");
+	  	  log.info("addProduct request is invoked !!....");
+	  	  productController.addProduct(request, response);
+
+	  	  break;	  
 			  
 	  	case "addToCart" :
 	  		if(request.getSession(false)==null) {

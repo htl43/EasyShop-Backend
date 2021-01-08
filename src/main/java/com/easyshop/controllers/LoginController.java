@@ -90,6 +90,7 @@ public class LoginController {
 			} else {
 				resp.setStatus(403);
 				resp.getWriter().print("The username is adready existed in database");
+				log.warn("The username is adready existed in database");
 			}											
 			
 		} else {
@@ -98,8 +99,8 @@ public class LoginController {
 				ses.invalidate();
 			}
 			resp.setStatus(400);
-
 			resp.getWriter().print("Bad Requested Using Http GET Method");	
+			log.warn("Bad Requested Using Http  Method");
 
 		}
 		
@@ -134,6 +135,7 @@ public class LoginController {
 			} else {
 				response.setStatus(403);
 				response.getWriter().print("Sorry. Can't Update User Information.");
+				log.info("Sorry. Can't Update User Information.");
 			}											
 			
 		} else {
@@ -143,7 +145,8 @@ public class LoginController {
 			}
 			response.setStatus(400);
 
-			response.getWriter().print("Bad Requested Using Http GET Method");	
+			response.getWriter().print("Bad Requested Using Http GET Method");
+			log.warn("Bad Requested Using Http GET Method");
 
 		}
 		

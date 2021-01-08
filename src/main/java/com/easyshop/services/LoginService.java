@@ -1,27 +1,29 @@
 package com.easyshop.services;
 
+import org.apache.log4j.Logger;
+
 import com.easyshop.dao.UserDAO;
+import com.easyshop.dao.impl.CartDAOImpl;
 import com.easyshop.dao.impl.UserDAOImpl;
 import com.easyshop.models.EsUser;
 import com.easyshop.models.LoginDTO;
 
 public class LoginService {
 	
+	private static Logger log=Logger.getLogger(LoginService.class);
+	
 	private UserDAO userDAO = new UserDAOImpl();
 
 
 	public EsUser isLogin(LoginDTO userLogin) {
 		EsUser eu = userDAO.isLogin(userLogin);
-//		if(eu!=null) {
-//			EsUser tmp = eu;
-//			System.out.println("service update user" + tmp);
-//			userDAO.updateUser(tmp);
-//		}
+		log.info(eu);
 		return eu;
 	}
 
 	public boolean create(EsUser esUser) {	
 		if(userDAO.registerUser(esUser)) {
+			log.info("create user is successfull");
 			return true;
 		}
 		return false;
