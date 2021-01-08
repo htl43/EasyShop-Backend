@@ -72,5 +72,5 @@ public class CartController {
 		res.getWriter().print(json);
 		res.setStatus(200);
 	}
-	
+
 }

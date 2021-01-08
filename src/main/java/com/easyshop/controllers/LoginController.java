@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Session;
 
 import com.easyshop.models.EsUser;
 import com.easyshop.models.LoginDTO;
@@ -51,7 +52,6 @@ public class LoginController {
 		System.out.println("Get User Login:" + userLogin.toString());		
 		EsUser esUser = loginService.isLogin(userLogin);
 		if(esUser!=null) {		
-			esUser.setPassword(""); // send empty password to frontend
 			String json = objectMapper.writeValueAsString(esUser);
 			response.getWriter().print(json);
 			response.setStatus(200);		
@@ -81,10 +81,10 @@ public class LoginController {
 			
 			String body = new String(sb);
 			EsUser esUser = objectMapper.readValue(body, EsUser.class);
+			System.out.println("Get request User=" + esUser.getUserCartItem());
 			esUser.setPassword(loginService.encryptPassword(esUser.getPassword()));
 			if(loginService.create(esUser)) {
 				resp.setStatus(200);
-				esUser.setPassword("");
 				String json = objectMapper.writeValueAsString(esUser);
 				resp.getWriter().print(json);
 			} else {
@@ -100,6 +100,50 @@ public class LoginController {
 			resp.setStatus(400);
 
 			resp.getWriter().print("Bad Requested Using Http GET Method");	
+
+		}
+		
+	}
+
+	public void updateUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		objectMapper.configure(Feature.AUTO_CLOSE_SOURCE, true);
+		if(request.getMethod().equals("POST")) {		
+			BufferedReader reader = request.getReader();
+			StringBuilder sb = new StringBuilder();
+			String line = reader.readLine();
+			
+			while (line!=null) {
+				sb.append(line);
+				line = reader.readLine();
+			}
+			
+			String body = new String(sb);
+			EsUser esUser = objectMapper.readValue(body, EsUser.class);
+			System.out.println("Get Update User=" + esUser);
+			HttpSession ses = request.getSession();	
+			EsUser oldEsUser = (EsUser) ses.getAttribute("user");
+			
+			if(!esUser.getPassword().equals(oldEsUser.getPassword())) {
+				System.out.println("Get Same User=" + oldEsUser);
+				esUser.setPassword(loginService.encryptPassword(esUser.getPassword()));
+			}
+			if(loginService.updateUser(esUser)) {
+				response.setStatus(200);
+				String json = objectMapper.writeValueAsString(esUser);
+				response.getWriter().print(json);
+			} else {
+				response.setStatus(403);
+				response.getWriter().print("Sorry. Can't Update User Information.");
+			}											
+			
+		} else {
+			HttpSession ses = request.getSession(false);
+			if (ses != null) {
+				ses.invalidate();
+			}
+			response.setStatus(400);
+
+			response.getWriter().print("Bad Requested Using Http GET Method");	
 
 		}
 		

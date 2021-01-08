@@ -17,6 +17,7 @@
         <!-- Hibernate Properties -->
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
         <property name="hibernate.default_schema">easy_shop</property>
+       <!--  <property name="connection.release_mode">auto</property> -->
         
         <!-- Hibernate console output -->
 <!--         <property name="hibernate.show_sql">true</property> -->
@@ -24,12 +25,7 @@
         
         <!-- DDL -->
         <!--  Update    -->
-        <property name="hibernate.hbm2ddl.auto">update</property>
-        
-        <!--  Create    -->
-        <!-- <property name="hibernate.hbm2ddl.auto">create</property>  -->
-      
-       
+        <property name="hibernate.hbm2ddl.auto">update</property>   
        
         <mapping class="com.easyshop.models.EsUser"/>
         <mapping class="com.easyshop.models.EsUserContact"/>
