@@ -52,8 +52,10 @@ public class CartDAOImpl implements CartDAO {
 	public boolean removeFromCart(EsCart cart) {
 		Session ses = HibernateUtil.getSession();
 		try {
-			ses.delete(cart);
-			HibernateUtil.closeSession();
+			System.out.println(cart);
+			//ses.delete(cart);
+			//HibernateUtil.closeSession();
+			ses.close();
 			return true; //if product successfully deleted
 		} catch (Exception e) {
 			log.warn(e);

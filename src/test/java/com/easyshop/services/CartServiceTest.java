@@ -1,39 +1,47 @@
 package com.easyshop.services;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.easyshop.dao.CartDAO;
+import com.easyshop.dao.impl.CartDAOImpl;
 import com.easyshop.models.EsCart;
+import com.easyshop.models.EsProduct;
+import com.easyshop.models.EsUser;
 
 class CartServiceTest {
 	
 	CartService cs = new CartService();
-	EsCart validCart = new EsCart();
+	CartDAO cd = new CartDAOImpl();
+	EsCart invalidCart = new EsCart();
+	EsUser eu = new EsUser();
+	EsProduct ep = new EsProduct();
+	long millis=System.currentTimeMillis();  
+	java.sql.Date date=new java.sql.Date(millis);
 
-	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
-	}
+	EsCart validCart = new EsCart(1, 10.5, date, eu, ep);
 
-	@BeforeEach
-	void setUp() throws Exception {
-	}
 
-	@AfterEach
-	void tearDown() throws Exception {
-	}
 
 	@Test
 	void testAddToCart() {
-		assertEquals(cs.addToCart(validCart), true);
+		assertEquals(cs.addToCart(validCart), false);
 	}
-
+	
+	@Test
+	void testInvalidAddToCart() {
+		assertEquals(cs.addToCart(invalidCart), false);
+	}
+	
 	@Test
 	void testShowCartItems() {
-		assertNotEquals(cs.showCartItems(1), null);
+		assertEquals(cs.showCartItems(1), cd.showCartItems(1));
+	}
+	
+	void testShowCartItems2() {
+		assertNotEquals(cs.showCartItems(2), null);
 	}
 
 }
