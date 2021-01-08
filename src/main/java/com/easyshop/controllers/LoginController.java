@@ -120,12 +120,12 @@ public class LoginController {
 			
 			String body = new String(sb);
 			EsUser esUser = objectMapper.readValue(body, EsUser.class);
-			System.out.println("Get Update User=" + esUser);
+			log.info("Get Update User=" + esUser);
 			HttpSession ses = request.getSession();	
 			EsUser oldEsUser = (EsUser) ses.getAttribute("user");
-			
+			esUser.setPassword(oldEsUser.getPassword());
 			if(!esUser.getPassword().equals(oldEsUser.getPassword())) {
-				System.out.println("Get Same User=" + oldEsUser);
+				log.info("Get Same User=" + oldEsUser);
 				esUser.setPassword(loginService.encryptPassword(esUser.getPassword()));
 			}
 			if(loginService.updateUser(esUser)) {
