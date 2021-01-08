@@ -237,7 +237,8 @@ public class EsProduct {
 		this.stockQuantity = stockQuantity;
 	}
 
-	public boolean isProductAvailabe() {
+
+	public boolean getIsProductAvailabe() {
 		return isProductAvailabe;
 	}
 
@@ -245,7 +246,7 @@ public class EsProduct {
 		this.isProductAvailabe = isProductAvailabe;
 	}
 
-	public boolean isDiscountAvailable() {
+	public boolean getIsDiscountAvailable() {
 		return isDiscountAvailable;
 	}
 
@@ -261,6 +262,7 @@ public class EsProduct {
 		this.createDate = createDate;
 	}
 
+	
 	public int getPicture() {
 		return picture;
 	}

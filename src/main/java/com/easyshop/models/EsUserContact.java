@@ -1,11 +1,13 @@
 package com.easyshop.models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -26,6 +28,10 @@ public class EsUserContact {
 	
 	@Column(nullable = false)
 	private String lastname;
+	
+//	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+//	@JoinColumn(name="id")
+//	private EsUser user;
 	
 //	@Column(nullable = false, unique=true)
 	private String email;

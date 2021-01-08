@@ -41,7 +41,7 @@ public class EsUser {
 	@JoinColumn(name="user_contact_id")
 	private EsUserContact userContact;
 	
-	@OneToMany(mappedBy="esUser", fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="esUser", fetch=FetchType.EAGER)
 	private List<EsCart> userCartItem;
 
 	public EsUser() {

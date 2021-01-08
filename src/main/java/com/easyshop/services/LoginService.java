@@ -37,6 +37,10 @@ public class LoginService {
 		return newPassword;
 	}
 
+	public boolean updateUser(EsUser esUser) {
+		return userDAO.updateUser(esUser);
+	}
+
 
 
 

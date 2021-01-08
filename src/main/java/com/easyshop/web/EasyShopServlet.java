@@ -45,27 +45,30 @@ public class EasyShopServlet extends HttpServlet{
 			  break;
 			  
 	  	case "register" :
-	  		  System.out.println("Register is invoked!!");
 			  log.info("Register request is invoked !!....");
 			  loginController.registerUser(request, response);
-			  break;    
+			  break;
 			  
-	  	case "viewCart" :
-	  		  System.out.println("View cart is invoked!!");
+	  	case "update" :
+			  log.info("Update request is invoked !!....");
+			  loginController.updateUser(request, response);
+			  break;
+			  
+	  	case "remove" :
+			  log.info("Remove request is invoked !!....");
+			  loginController.updateUser(request, response);
+			  break;
+	  	case "viewCart" : 		
 			  log.info("View cart request is invoked !!....");
 			  cartController.viewCartItems(request, response);
 			  break;
-
-			  
 	  	case "getProduct" :
-	  		  System.out.println("getProduct is invoked!!");
 			  log.info("getProduct request is invoked !!....");
 			  productController.getProduct(request, response);
 
 			  break;
 			  
-	  	case "getProductByCategoryId" :
-	  		  System.out.println("getProductByCategoryId is invoked!!");
+	  	case "getProductByCategoryId" :  		 
 			  log.info("getProductByCategoryId request is invoked !!....");
 			  productController.getProductByCategoryId(request, response);
 
@@ -80,11 +83,16 @@ public class EasyShopServlet extends HttpServlet{
 			  
 			  
 	  	case "addToCart" :
-	  		  System.out.println("Add to cart is invoked!!");
+	  		if(request.getSession(false)==null) {
+				log.warn("Submit Reimbursment Failed. User's Credential is not found");
+				response.setStatus(401);
+				response.getWriter().print("Unauthorized User");
+			} else {
+	  		  log.info("Add to cart is invoked!!");
 			  log.info("Add to cart request is invoked !!....");
 			  cartController.addToCart(request, response);
-			  break;
-		  
+			}
+	  		break;
 	  }
 	  
   }
