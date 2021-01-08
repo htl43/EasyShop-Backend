@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import com.easyshop.dao.UserDAO;
 import com.easyshop.dao.impl.CartDAOImpl;
 import com.easyshop.dao.impl.UserDAOImpl;
+import com.easyshop.models.EsCart;
 import com.easyshop.models.EsUser;
 import com.easyshop.models.LoginDTO;
 
@@ -41,6 +42,14 @@ public class LoginService {
 
 	public boolean updateUser(EsUser esUser) {
 		return userDAO.updateUser(esUser);
+	}
+
+	public boolean removeCart(EsCart esCart) {
+		if(esCart!=null) {
+			log.info("Removing Cart" + esCart);
+			return userDAO.removeItem(esCart);
+		}
+		return false;
 	}
 
 

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 
+import com.easyshop.models.EsCart;
 import com.easyshop.models.EsUser;
 import com.easyshop.models.LoginDTO;
 import com.easyshop.services.LoginService;
@@ -150,6 +151,48 @@ public class LoginController {
 
 		}
 		
+	}
+
+	public void removeItem(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		objectMapper.configure(Feature.AUTO_CLOSE_SOURCE, true);
+		if(request.getMethod().equals("POST")) {		
+			BufferedReader reader = request.getReader();
+			StringBuilder sb = new StringBuilder();
+			String line = reader.readLine();
+			
+			while (line!=null) {
+				sb.append(line);
+				line = reader.readLine();
+			}
+			
+			String body = new String(sb);
+			EsCart esCart = objectMapper.readValue(body, EsCart.class);
+			log.info("Get Remove Cart=" + esCart);
+			HttpSession ses = request.getSession();	
+			EsUser oldEsUser = (EsUser) ses.getAttribute("user");
+			esCart.setEsUser(oldEsUser);
+			if(loginService.removeCart(esCart)) {
+				response.setStatus(200);
+				String json = objectMapper.writeValueAsString(esCart);
+				response.getWriter().print(json);
+				log.info("Remove Cart Successfully");
+			} else {
+				response.setStatus(403);
+				response.getWriter().print("Sorry. Can't Remove cart.");
+				log.info("Sorry. Can't Remove cart.");
+			}											
+			
+		} else {
+			HttpSession ses = request.getSession(false);
+			if (ses != null) {
+				ses.invalidate();
+			}
+			response.setStatus(400);
+
+			response.getWriter().print("Bad Requested Using Http GET Method");
+			log.warn("Bad Requested Using Http GET Method");
+
+		}
 	}
 
 }

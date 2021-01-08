@@ -1,5 +1,6 @@
 package com.easyshop.dao;
 
+import com.easyshop.models.EsCart;
 import com.easyshop.models.EsUser;
 import com.easyshop.models.LoginDTO;
 
@@ -10,6 +11,7 @@ public interface UserDAO {
 	public boolean registerUser(EsUser esUser);
 	
 	public boolean updateUser(EsUser esUser);
+	public boolean removeItem(EsCart esCart);
 	
 	
 
