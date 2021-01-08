@@ -19,7 +19,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class CartController {
 	
-	private static Logger log=Logger.getLogger(LoginController.class);
+	private static Logger log=Logger.getLogger(CartController.class);
 	private ObjectMapper objectMapper = new ObjectMapper();
 	private CartService cartService = new CartService();
 
@@ -46,6 +46,7 @@ public class CartController {
 			if(cartService.addToCart(cart)) { //if addToCart method returns true (indicating successful add)
 				res.setStatus(200);
 				res.getWriter().print("Product added to Cart!");
+				log.info("Product added to Cart!");
 			}else {
 				HttpSession ses = req.getSession(false);
 				if (ses != null) {
@@ -53,7 +54,8 @@ public class CartController {
 				}
 				res.setStatus(400);
 
-				res.getWriter().print("Bad POST Request!!");	
+				res.getWriter().print("Bad POST Request!!");
+				log.warn("Bad POST Request!!");
 
 			}
 			
@@ -66,7 +68,7 @@ public class CartController {
 	public void viewCartItems(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		
 		int userId = 21; //somehow get userId
-		
+		log.info("this is testing features");
 		List<EsCart> list = cartService.showCartItems(userId); //how to get userId for the parameter? EsUser.getId()?
 		String json = objectMapper.writeValueAsString(list);
 		res.getWriter().print(json);

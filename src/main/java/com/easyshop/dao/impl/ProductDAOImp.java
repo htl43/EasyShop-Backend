@@ -2,6 +2,7 @@ package com.easyshop.dao.impl;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 
 import com.easyshop.dao.ProductDAO;
@@ -9,7 +10,11 @@ import com.easyshop.dao.dbutil.HibernateUtil;
 import com.easyshop.models.EsColor;
 import com.easyshop.models.EsProduct;
 
+import jdk.internal.org.jline.utils.Log;
+
 public class ProductDAOImp implements ProductDAO {
+	
+	private static Logger log=Logger.getLogger(ProductDAOImp.class);
 
 	@Override
 	public boolean addProduct(EsProduct esProduct) {
@@ -19,7 +24,7 @@ public class ProductDAOImp implements ProductDAO {
 			HibernateUtil.closeSession();
 			return true;
 		} catch (Exception e){
-			//log.warn(e);
+			log.warn(e);
 			return false;
 
 		}		
@@ -37,6 +42,7 @@ public class ProductDAOImp implements ProductDAO {
 		   return true;
 		   
 	   }catch(Exception e) {
+		   log.warn(e);
 		return false;
 	   }
 	}
@@ -55,7 +61,7 @@ public class ProductDAOImp implements ProductDAO {
 			return esProductList;
 			
 		}catch(Exception e) {
-			
+			log.warn(e);
 			
 			return null;
 		}
@@ -82,7 +88,7 @@ public class ProductDAOImp implements ProductDAO {
 			
 		}catch(Exception e) {
 			
-			
+			log.warn(e);
 			return null;
 		}
 	}

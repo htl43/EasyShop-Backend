@@ -12,7 +12,7 @@ import com.easyshop.models.EsProduct;
 
 public class CartDAOImpl implements CartDAO {
 	
-	private static Logger log=Logger.getLogger(UserDAOImpl.class);
+	private static Logger log=Logger.getLogger(CartDAOImpl.class);
 
 	@Override
 	public boolean addToCart(EsCart cart) {
@@ -31,12 +31,11 @@ public class CartDAOImpl implements CartDAO {
 	public List<EsCart> showCartItems(int esUserId) {
 		Session ses = HibernateUtil.getSession();
 		List<EsCart> esCartList = null;
-		System.out.println("Loading item form userID=" + esUserId);
+		log.info("Loading item form userID=" + esUserId);
 		try {
-//			esCartList = ses.createQuery("FROM EsCart).list();
 			esCartList = ses.createQuery("FROM EsCart  WHERE esUser.id=" + esUserId).list();
 			if(esCartList.size()>0) {
-				System.out.println(esCartList); //to see if it worked		
+				log.info(esCartList); //to see if it worked		
 			} 
 			return esCartList;
 		} catch (Exception e){
@@ -47,9 +46,7 @@ public class CartDAOImpl implements CartDAO {
 		
 	}	
 	
-	//should we just have a boolean in EsCart called "isOrdered"?
-	//and then have a method in CartDAOImpl that changes the boolean from false to true when we click order on a product
-	//and another method called showOrderedItems that returns all cart items with isOrdered = true?
+	
 	
 	
 }

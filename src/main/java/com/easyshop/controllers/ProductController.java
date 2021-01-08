@@ -47,6 +47,7 @@ public class ProductController {
 			if(productService.addProduct(esProduct)) {
 				response.setStatus(200);
 				response.getWriter().print("Product is added Successfully !!...");
+				log.info("Product is added Successfully !!...");
 			}else {
 				HttpSession ses = request.getSession(false);
 				if (ses != null) {
@@ -55,6 +56,7 @@ public class ProductController {
 				response.setStatus(400);
 
 				response.getWriter().print("Bad Requested Using Http POST Method");	
+				log.warn("Bad Requested Using Http POST Method");
 
 			}
 			
@@ -71,7 +73,7 @@ public class ProductController {
 		  String json = objectMapper.writeValueAsString(esProductList);
 		  
 		  response.getWriter().print(json);
-		
+		  log.info("Get products is calling");
 		  
 		  response.setStatus(200);
 		
@@ -105,7 +107,7 @@ public class ProductController {
 		    String json = objectMapper.writeValueAsString(esProductList);
 		  
 		    response.getWriter().print(json);
-		
+		    log.info("Get products by ID is calling");
 		  
 		    response.setStatus(200);
 	    }

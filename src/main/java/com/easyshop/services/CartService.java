@@ -2,19 +2,25 @@ package com.easyshop.services;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.easyshop.dao.CartDAO;
 import com.easyshop.dao.impl.CartDAOImpl;
 import com.easyshop.models.EsCart;
-import com.easyshop.models.EsProduct;
 
 public class CartService {
+	
+	private static Logger log=Logger.getLogger(CartService.class);
 
 	private CartDAO cartDAO = new CartDAOImpl();
 	
 	public boolean addToCart(EsCart cart) {
 		if(cartDAO.addToCart(cart)){
+			log.info("add cart is successfull");
 			return true;
-		}else {return false;}
+		}else {
+			log.info("add cart is failed");
+			return false;}
 	}
 	
 	public List<EsCart> showCartItems(int userId) {
