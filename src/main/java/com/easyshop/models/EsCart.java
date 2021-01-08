@@ -33,12 +33,12 @@ public class EsCart {
 	@Column(nullable = false)
 	private Date dateAdded;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinColumn(name="id")
 	@JsonBackReference
 	private EsUser esUser;
 	
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinColumn(name="productId")
 	private EsProduct product;
 

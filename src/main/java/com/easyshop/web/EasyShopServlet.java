@@ -56,7 +56,7 @@ public class EasyShopServlet extends HttpServlet{
 			  
 	  	case "remove" :
 			  log.info("Remove request is invoked !!....");
-			  loginController.updateUser(request, response);
+			  loginController.removeItem(request, response);
 			  break;
 	  	case "viewCart" : 		
 			  log.info("View cart request is invoked !!....");

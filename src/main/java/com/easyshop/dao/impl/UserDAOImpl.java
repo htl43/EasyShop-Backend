@@ -25,7 +25,7 @@ public class UserDAOImpl implements UserDAO{
 		EsUser esUser = null;
 		long current = System.currentTimeMillis();
 		Date now = new Date(current);
-		System.out.println("Get User Login= " + esUser);
+		log.info("Get User Login= " + esUser);
 		try {
 			esUser = (EsUser)ses.createQuery(
 					"FROM EsUser e WHERE e.username=:username AND e.password=:password").setParameter("username", userLogin.username)
@@ -54,7 +54,7 @@ public class UserDAOImpl implements UserDAO{
 		long current = System.currentTimeMillis();
 		Date now = new Date(current);
 		esUser.setRegistedDate(now);
-		System.err.println("Register User: " + esUser);
+		log.info("Register User: " + esUser);
 		try {
 			ses.saveOrUpdate(esUser);
 			HibernateUtil.closeSession();
@@ -68,22 +68,39 @@ public class UserDAOImpl implements UserDAO{
 
 	@Override
 	public boolean updateUser(EsUser newUser) {
-		System.out.println("=======================================================");
-		System.out.println("Updating User=" + newUser);
+		log.info("Updating User=" + newUser);
 		Session ses = HibernateUtil.getSession();
 		Transaction trans = ses.beginTransaction();
 		try {
 			ses.merge(newUser);
 			ses.flush();
 			trans.commit();
-//			HibernateUtil.closeSession();
+
 			return true;
 		} catch (Exception e){
 			log.warn(e);
 			trans.rollback();
-//			HibernateUtil.closeSession();
+
 			return false;
 		}
+	}
+
+	@Override
+	public boolean removeItem(EsCart esCart) {
+		log.info("Delete Cart=" + esCart);
+		Session ses = HibernateUtil.getSession();
+		Transaction trans = ses.beginTransaction();
+		try {	
+			ses.remove(esCart);
+			log.info("Cart Item is Been Delete" + esCart);
+			ses.flush();
+			trans.commit();
+			return false;
+		} catch (Exception e){
+			log.warn(e);		
+			trans.rollback();
+			return false;
+		} 
 	}
 
 }
