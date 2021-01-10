@@ -11,7 +11,7 @@ public interface UserDAO {
 	public boolean registerUser(EsUser esUser);
 	
 	public boolean updateUser(EsUser esUser);
-	public boolean removeItem(EsCart esCart);
+	public boolean removeItem(EsCart cart);
 	
 	
 

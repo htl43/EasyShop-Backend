@@ -44,11 +44,11 @@ public class LoginService {
 		return userDAO.updateUser(esUser);
 	}
 
-	public boolean removeCart(EsCart esCart) {
-		if(esCart!=null) {
-			log.info("Removing Cart" + esCart);
-			return userDAO.removeItem(esCart);
-		}
+	public boolean removeCart(EsCart cart) {
+		if(cart!=null) {
+			log.info("Removing Cart..." + cart);
+			return userDAO.removeItem(cart);
+		} 
 		return false;
 	}
 

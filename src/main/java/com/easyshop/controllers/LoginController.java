@@ -2,6 +2,8 @@ package com.easyshop.controllers;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -167,20 +169,27 @@ public class LoginController {
 			
 			String body = new String(sb);
 			EsCart esCart = objectMapper.readValue(body, EsCart.class);
+		
 			log.info("Get Remove Cart=" + esCart);
 			HttpSession ses = request.getSession();	
-			EsUser oldEsUser = (EsUser) ses.getAttribute("user");
-			esCart.setEsUser(oldEsUser);
-			if(loginService.removeCart(esCart)) {
-				response.setStatus(200);
-				String json = objectMapper.writeValueAsString(esCart);
-				response.getWriter().print(json);
-				log.info("Remove Cart Successfully");
+			EsUser  currentEsUser = (EsUser) ses.getAttribute("user");
+			if(currentEsUser!=null) {
+				if(loginService.removeCart(esCart)) {
+					response.setStatus(200);
+					String json = objectMapper.writeValueAsString(esCart);
+					response.getWriter().print(json);
+					log.info("Remove Cart Successfully");
+				} else {
+					response.setStatus(403);
+					response.getWriter().print("Sorry. Can't Remove cart.");
+					log.info("Sorry. Can't Remove cart.");
+				}	
 			} else {
-				response.setStatus(403);
-				response.getWriter().print("Sorry. Can't Remove cart.");
-				log.info("Sorry. Can't Remove cart.");
-			}											
+				response.setStatus(401);
+				response.getWriter().print("Session is expired. Please re-login");
+				log.info("Session is expired. Please re-login");
+			}
+													
 			
 		} else {
 			HttpSession ses = request.getSession(false);
