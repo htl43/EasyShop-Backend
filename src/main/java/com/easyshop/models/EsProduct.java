@@ -51,6 +51,13 @@ public class EsProduct {
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "colorId")
 	private EsColor colorId ;
+		
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="categoryId")
+	private EsCategory categoryId;
+	
+	@OneToMany(mappedBy="product", fetch=FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.PERSIST)
+	private List<EsCart> cartItems;
 	
 	private double discount;
 	private int unitWeight;
@@ -62,13 +69,6 @@ public class EsProduct {
 	private int picture;
 	private int ranking;
 	private String note;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="categoryId")
-	private EsCategory categoryId;
-	
-	@OneToMany(mappedBy="product", fetch=FetchType.EAGER)
-	private List<EsCart> cartItems;
 	
 	public EsProduct() {
 		super();

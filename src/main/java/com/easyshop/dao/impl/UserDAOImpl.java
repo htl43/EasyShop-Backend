@@ -86,16 +86,16 @@ public class UserDAOImpl implements UserDAO{
 	}
 
 	@Override
-	public boolean removeItem(EsCart esCart) {
-		log.info("Delete Cart=" + esCart);
+	public boolean removeItem(EsCart cart) {
+		HibernateUtil.closeSession();
 		Session ses = HibernateUtil.getSession();
 		Transaction trans = ses.beginTransaction();
 		try {	
-			ses.remove(esCart);
-			log.info("Cart Item is Been Delete" + esCart);
+			ses.delete(cart);
+			log.info("Cart Item is Been Delete" + cart);
 			ses.flush();
 			trans.commit();
-			return false;
+			return true;
 		} catch (Exception e){
 			log.warn(e);		
 			trans.rollback();
