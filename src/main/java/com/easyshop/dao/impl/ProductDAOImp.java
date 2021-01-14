@@ -10,7 +10,6 @@ import com.easyshop.dao.dbutil.HibernateUtil;
 import com.easyshop.models.EsColor;
 import com.easyshop.models.EsProduct;
 
-import jdk.internal.org.jline.utils.Log;
 
 public class ProductDAOImp implements ProductDAO {
 	
